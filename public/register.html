@@ -1,0 +1,1011 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/logo2.png" type="image/png" />
+  <title>Register - IngreChec</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #16a34a;
+      --primary-hover: #22c55e;
+      --background: #ffffff;
+      --foreground: #0f0f0f;
+      --muted: #f6f6f6;
+      --muted-foreground: #6b7280;
+      --border: #e5e7eb;
+      --card: #ffffff;
+      --card-foreground: #0f0f0f;
+      --ring: #16a34a;
+      --transition: all 0.3s ease;
+      --glass-green: rgba(22, 163, 74, 0.8);
+      --error: #ef4444;
+      --error-bg: #fef2f2;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+    }
+
+    .dark {
+      --background: #0f0f0f;
+      --foreground: #f9fafb;
+      --muted: #1f2937;
+      --muted-foreground: #9ca3af;
+      --border: #374151;
+      --card: #1f2937;
+      --card-foreground: #f9fafb;
+      --glass-green: rgba(22, 163, 74, 0.6);
+      --error: #f87171;
+      --error-bg: #7f1d1d;
+      --success: #4ade80;
+      --success-bg: #14532d;
+    }
+
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+      transition: var(--transition);
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background-color: var(--background);
+      color: var(--foreground);
+      scroll-behavior: smooth;
+      min-height: 100vh;
+    }
+    
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; }
+ 
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: var(--background);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: slideDown 0.5s ease;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--primary);
+      cursor: pointer;
+    }
+    
+   
+    .nav-buttons { 
+      display: flex; 
+      gap: 12px; 
+    }
+    
+    /* Updated Button Styles */
+    .btn {
+      text-decoration: none;
+      color: #fff;
+      background-color: var(--primary);
+      padding: 14px 30px;
+      display: inline-block;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 18px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: linear-gradient(135deg, var(--glass-green) 0%, var(--primary) 100%);
+      backdrop-filter: blur(5px);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: 0.5s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(22, 163, 74, 0.4);
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn.login {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    
+    .btn.login:hover { 
+      background: var(--primary);
+      color: white;
+    }
+    
+    .btn.register {
+      background: linear-gradient(135deg, var(--glass-green) 0%, var(--primary) 100%);
+      color: #ffffff;
+    }
+    
+    .btn.register:hover { 
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+    }
+
+    /* Theme Dropdown */
+    .theme-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .theme-btn {
+      padding: 15px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border: 2px solid #16a34a;
+     border-radius: 25px;
+      
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      color: var(--foreground);
+    }
+
+    .theme-btn:hover {
+      background: var(--muted);
+    }
+
+    .theme-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      min-width: 120px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: var(--transition);
+      z-index: 1000;
+    }
+
+    .theme-menu.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .theme-option {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      color: var(--foreground);
+    }
+
+    .theme-option:hover {
+      background: var(--muted);
+    }
+
+    /* Register Container */
+    .register-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: calc(100vh - 160px);
+      padding: 40px 20px;
+      animation: fadeIn 0.8s ease;
+    }
+    
+    .register-box {
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      width: 100%;
+      max-width: 500px;
+      padding: 40px;
+      transition: var(--transition);
+      border: 1px solid var(--border);
+    }
+    
+    .register-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+    
+    .register-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .register-header h1 {
+      font-size: 28px;
+      color: var(--primary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .register-header p {
+      color: var(--muted-foreground);
+      font-size: 16px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--foreground);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 16px;
+      transition: var(--transition);
+      background: var(--muted);
+      color: var(--foreground);
+    }
+    
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
+    }
+    
+    .checkbox-group {
+      margin-top: 15px;
+      max-height: 300px;
+      overflow-y: auto;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--muted);
+    }
+    
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+    
+    .checkbox-item:hover {
+      background: rgba(22, 163, 74, 0.05);
+    }
+    
+    .checkbox-item input {
+      margin-right: 10px;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    
+    .checkbox-item label {
+      font-weight: normal;
+      margin-bottom: 0;
+      cursor: pointer;
+      color: var(--foreground);
+    }
+    
+    .form-note {
+      font-size: 14px;
+      color: var(--muted-foreground);
+      margin-top: 10px;
+      font-style: italic;
+    }
+    
+    .register-btn {
+      width: 100%;
+      padding: 14px 30px;
+      color: #ffffff;
+      border: none;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: linear-gradient(135deg, var(--glass-green) 0%, var(--primary) 100%);
+      backdrop-filter: blur(5px);
+    }
+
+    .register-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: 0.5s;
+    }
+
+    .register-btn:hover::before {
+      left: 100%;
+    }
+    
+    .register-btn:hover {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(22, 163, 74, 0.4);
+    }
+    
+    .register-btn.loading {
+      color: transparent;
+    }
+    
+    .register-btn .spinner {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 2px solid transparent;
+      border-top: 2px solid #ffffff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      display: none;
+    }
+    
+    .register-btn.loading .spinner {
+      display: block;
+    }
+    
+    .login-link {
+      text-align: center;
+      margin-top: 25px;
+      color: var(--muted-foreground);
+    }
+    
+    .login-link a {
+      color: var(--primary);
+      font-weight: 500;
+    }
+    
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+    
+    .error-message {
+      color: #e53e3e;
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+      animation: shake 0.3s ease;
+    }
+    
+    .password-strength {
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    
+    .password-strength-bar {
+      height: 100%;
+      width: 0;
+      transition: width 0.3s, background 0.3s;
+      border-radius: 3px;
+    }
+
+    /* Notification Styles */
+    .notification {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: slideIn 0.3s ease;
+    }
+    
+    .notification.error {
+      background-color: var(--error-bg);
+      color: var(--error);
+      border: 1px solid var(--error);
+    }
+    
+    .notification.success {
+      background-color: var(--success-bg);
+      color: var(--success);
+      border: 1px solid var(--success);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: var(--muted);
+      color: var(--muted-foreground);
+      font-size: 14px;
+      border-top: 1px solid var(--border);
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideDown {
+      from { 
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      to { 
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateY(-10px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .nav-buttons {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .register-box {
+        padding: 25px 20px;
+      }
+      
+      .checkbox-group {
+        max-height: 200px;
+      }
+      
+      .btn {
+        padding: 12px 24px;
+        font-size: 16px;
+      }
+    }
+    .logo {
+      height: 50px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo" onclick="window.location.href='index.html'"> <img src="img/logo.png" alt="IngreChec Logo" class="logo"></div>
+    <div class="nav-buttons">
+      <button class="btn login" onclick="window.location.href='index.html'">
+        <i class="fas fa-home"></i> Home
+      </button>
+      <button class="btn login" onclick="window.location.href='signin.html'">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </button>
+      <div class="theme-dropdown">
+        <button class="theme-btn" id="theme-btn" onclick="toggleThemeMenu()">
+          <span id="theme-icon"><i class="fas fa-moon"></i></span>
+        </button>
+        <div class="theme-menu" id="theme-menu">
+          <button class="theme-option" onclick="setTheme('system')">
+            <span><i class="fas fa-desktop"></i></span> System
+          </button>
+          <button class="theme-option" onclick="setTheme('light')">
+            <span><i class="fas fa-sun"></i></span> Light
+          </button>
+          <button class="theme-option" onclick="setTheme('dark')">
+            <span><i class="fas fa-moon"></i></span> Dark
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="register-container">
+    <div class="register-box">
+      <div class="register-header">
+        <h1><i class="fas fa-user-plus"></i> Register</h1>
+        <p>Join IngreChec to start scanning food labels safely</p>
+      </div>
+      
+      <div id="notificationArea"></div>
+      
+      <form id="registerForm">
+        <div class="form-group">
+          <label for="fullName"><i class="fas fa-user"></i> Full Name</label>
+          <input type="text" id="fullName" placeholder="Enter your full name" required>
+          <div class="error-message" id="nameError">Please enter your full name</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
+          <div class="error-message" id="emailError">Please enter a valid email address</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="password"><i class="fas fa-lock"></i> Create a password (min 6 characters)</label>
+          <input type="password" id="password" placeholder="Create a password (min 6 characters)" required minlength="6">
+          <div class="password-strength">
+            <div class="password-strength-bar" id="passwordStrengthBar"></div>
+          </div>
+          <div class="error-message" id="passwordError">Password must be at least 6 characters</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="confirmPassword"><i class="fas fa-lock"></i> Confirm Password</label>
+          <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+          <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
+        </div>
+        
+        <div class="form-group">
+          <label><i class="fas fa-heartbeat"></i> Health Issues (Select all that apply)</label>
+
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="No_Health_Issue" name="healthIssues" value="No_Health_Issue">
+              <label for="No_Health_Issue">No Health Issue, I am Fit</label>
+            </div>
+
+        
+            <div class="checkbox-item">
+              <input type="checkbox" id="diabetes" name="healthIssues" value="diabetes">
+              <label for="diabetes">Diabetes</label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="heartProblem" name="healthIssues" value="heartProblem">
+              <label for="heartProblem">Heart Problem</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="highBloodPressure" name="healthIssues" value="highBloodPressure">
+              <label for="highBloodPressure">High Blood Pressure</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="kidneyDisease" name="healthIssues" value="kidneyDisease">
+              <label for="kidneyDisease">Kidney Disease</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="foodAllergies" name="healthIssues" value="foodAllergies">
+              <label for="foodAllergies">Food Allergies</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="celiacDisease" name="healthIssues" value="celiacDisease">
+              <label for="celiacDisease">Celiac Disease</label>
+            </div>
+            <div class="checkbox-item">
+  <input type="checkbox" id="obesity" name="healthIssues" value="obesity_condition">
+  <label for="obesity">Obesity (Excess Body Weight)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="highCholesterol" name="healthIssues" value="high_cholesterol_hyperlipidemia">
+  <label for="highCholesterol">High Cholesterol / Hyperlipidemia</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="thyroidDisorder" name="healthIssues" value="thyroid_disorder_hypo_or_hyperthyroidism">
+  <label for="thyroidDisorder">Thyroid Disorder (Hypothyroidism or Hyperthyroidism)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="asthma" name="healthIssues" value="asthma_respiratory_condition">
+  <label for="asthma">Asthma (Chronic Respiratory Condition)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="anemia" name="healthIssues" value="anemia_low_hemoglobin">
+  <label for="anemia">Anemia (Low Hemoglobin / Iron Deficiency)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="lactoseIntolerance" name="healthIssues" value="lactose_intolerance_dairy_sensitivity">
+  <label for="lactoseIntolerance">Lactose Intolerance (Dairy Sensitivity)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="glutenIntolerance" name="healthIssues" value="gluten_intolerance_non_celiac">
+  <label for="glutenIntolerance">Gluten Intolerance (Non-Celiac Sensitivity)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="ibs" name="healthIssues" value="irritable_bowel_syndrome_ibs">
+  <label for="ibs">Irritable Bowel Syndrome (IBS)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="acidReflux" name="healthIssues" value="acid_reflux_gerd">
+  <label for="acidReflux">Acid Reflux / GERD (Gastroesophageal Reflux Disease)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="liverDisease" name="healthIssues" value="liver_disease_hepatic_condition">
+  <label for="liverDisease">Liver Disease (General Hepatic Disorders)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="pancreaticDisorder" name="healthIssues" value="pancreatic_disorder_general">
+  <label for="pancreaticDisorder">Pancreatic Disorder (General)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="cancer" name="healthIssues" value="cancer_general_or_under_treatment">
+  <label for="cancer">Cancer (General or Under Treatment)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="osteoporosis" name="healthIssues" value="osteoporosis_bone_density_loss">
+  <label for="osteoporosis">Osteoporosis (Low Bone Density)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="arthritis" name="healthIssues" value="arthritis_joint_pain">
+  <label for="arthritis">Joint Pain / Arthritis (Osteoarthritis or Rheumatoid Arthritis)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="mentalHealth" name="healthIssues" value="mental_health_disorders_depression_anxiety">
+  <label for="mentalHealth">Mental Health Issues (Depression, Anxiety, Other Disorders)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="pcos" name="healthIssues" value="pcos_pcod_polycystic_ovary_syndrome">
+  <label for="pcos">PCOS / PCOD (Polycystic Ovary Syndrome)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="pregnancy" name="healthIssues" value="pregnancy_or_breastfeeding">
+  <label for="pregnancy">Pregnancy / Breastfeeding</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="cfs" name="healthIssues" value="chronic_fatigue_syndrome_cfs">
+  <label for="cfs">Chronic Fatigue Syndrome (CFS)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="epilepsy" name="healthIssues" value="epilepsy_neurological_disorder">
+  <label for="epilepsy">Epilepsy (Neurological Seizure Disorder)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="migraines" name="healthIssues" value="migraines_neurological_headache">
+  <label for="migraines">Migraines (Chronic Neurological Headache Disorder)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="skinConditions" name="healthIssues" value="skin_conditions_eczema_psoriasis">
+  <label for="skinConditions">Skin Conditions (Eczema, Psoriasis, etc.)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="immunodeficiency" name="healthIssues" value="immunodeficiency_disorder">
+  <label for="immunodeficiency">Immunodeficiency Disorders (Weak Immune System)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="crohns" name="healthIssues" value="crohns_disease_inflammatory_bowel">
+  <label for="crohns">Crohn's Disease (Inflammatory Bowel Disease)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="ulcerativeColitis" name="healthIssues" value="ulcerative_colitis_inflammatory_bowel">
+  <label for="ulcerativeColitis">Ulcerative Colitis (Inflammatory Bowel Disease)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="gout" name="healthIssues" value="gout_uric_acid_joint_disorder">
+  <label for="gout">Gout (Uric Acid-Related Joint Disorder)</label>
+</div>
+
+<div class="checkbox-item">
+  <input type="checkbox" id="pots" name="healthIssues" value="pots_postural_orthostatic_tachycardia_syndrome">
+  <label for="pots">POTS (Postural Orthostatic Tachycardia Syndrome)</label>
+</div>
+
+          </div>
+          <p class="form-note">This helps us provide personalized ingredient analysis</p>
+        </div>
+        
+        <button type="submit" class="register-btn" id="registerButton">
+          <span class="spinner"></span>
+          <i class="fas fa-user-plus"></i> Register
+        </button>
+      </form>
+      
+      <div class="login-link">
+        Already have an account? <a href="signin.html">Sign in</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 IngreChec. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Theme Management
+    let currentTheme = localStorage.getItem('theme') || 'system';
+    
+    function updateThemeIcon() {
+      const resolvedTheme = getResolvedTheme();
+      const icon = resolvedTheme === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+      const systemIcon = currentTheme === 'system' ? '<i class="fas fa-desktop"></i>' : icon;
+      
+      document.getElementById('theme-icon').innerHTML = systemIcon;
+    }
+    
+    function getResolvedTheme() {
+      if (currentTheme === 'system') {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      return currentTheme;
+    }
+    
+    function applyTheme() {
+      const resolvedTheme = getResolvedTheme();
+      if (resolvedTheme === 'dark') {
+        document.body.classList.add('dark');
+      } else {
+        document.body.classList.remove('dark');
+      }
+      updateThemeIcon();
+    }
+    
+    function setTheme(theme) {
+      currentTheme = theme;
+      localStorage.setItem('theme', theme);
+      applyTheme();
+      toggleThemeMenu();
+    }
+    
+    function toggleThemeMenu() {
+      const menu = document.getElementById('theme-menu');
+      menu.classList.toggle('show');
+    }
+    
+    // Close dropdowns when clicking outside
+    function handleOutsideClick(event) {
+      const themeMenu = document.getElementById('theme-menu');
+      
+      if (!event.target.closest('.theme-dropdown')) {
+        themeMenu.classList.remove('show');
+      }
+    }
+
+    // Notification system
+    const notificationArea = document.getElementById('notificationArea');
+    const registerButton = document.getElementById('registerButton');
+    
+    function showNotification(message, type = 'error') {
+      notificationArea.innerHTML = `
+        <div class="notification ${type}">
+          <i class="fas ${type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i>
+          ${message}
+        </div>
+      `;
+      
+      // Auto remove after 5 seconds for success messages
+      if (type === 'success') {
+        setTimeout(() => {
+          notificationArea.innerHTML = '';
+        }, 5000);
+      }
+    }
+
+    // Form validation and functionality
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Reset error messages
+      document.querySelectorAll('.error-message').forEach(el => {
+        el.style.display = 'none';
+      });
+      
+      // Get input values
+      const fullName = document.getElementById('fullName').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      let isValid = true;
+      
+      // Validate full name
+      if (!fullName.trim()) {
+        document.getElementById('nameError').style.display = 'block';
+        isValid = false;
+      }
+      
+      // Validate email
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        document.getElementById('emailError').style.display = 'block';
+        isValid = false;
+      }
+      
+      // Validate password
+      if (password.length < 6) {
+        document.getElementById('passwordError').style.display = 'block';
+        isValid = false;
+      }
+      
+      // Validate password confirmation
+      if (password !== confirmPassword) {
+        document.getElementById('confirmPasswordError').style.display = 'block';
+        isValid = false;
+      }
+      
+      if (!isValid) {
+        showNotification('Please fix the errors in the form.');
+        return;
+      }
+      
+      // Show loading state
+      registerButton.classList.add('loading');
+      
+      try {
+        const healthIssues = [];
+        document.querySelectorAll('input[name="healthIssues"]:checked').forEach(checkbox => {
+          healthIssues.push(checkbox.value);
+        });
+
+        // Send data to backend
+        const response = await fetch('/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fullName, email, password, healthIssues })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          showNotification('Registration successful! Redirecting to Login page...', 'success');
+          
+          // Redirect to login page after a delay
+          setTimeout(() => {
+            window.location.href = 'signin.html';
+          }, 2000);
+        } else {
+          showNotification(data.message || 'Registration failed. Please try again.');
+        }
+      } catch (err) {
+        console.error('Error:', err);
+        showNotification('Network error. Please check your connection and try again.');
+      } finally {
+        // Remove loading state
+        registerButton.classList.remove('loading');
+      }
+    });
+    
+    // Password strength indicator
+    document.getElementById('password').addEventListener('input', function() {
+      const password = this.value;
+      const strengthBar = document.getElementById('passwordStrengthBar');
+      let strength = 0;
+      
+      if (password.length > 5) strength += 25;
+      if (password.length > 8) strength += 25;
+      if (/[A-Z]/.test(password)) strength += 25;
+      if (/[0-9]/.test(password)) strength += 25;
+      
+      strengthBar.style.width = strength + '%';
+      
+      if (strength < 50) {
+        strengthBar.style.background = '#e53e3e';
+      } else if (strength < 75) {
+        strengthBar.style.background = '#dd6b20';
+      } else {
+        strengthBar.style.background = '#16a34a';
+      }
+    });
+    
+    // Confirm password validation
+    document.getElementById('confirmPassword').addEventListener('input', function() {
+      const password = document.getElementById('password').value;
+      const confirmPassword = this.value;
+      
+      if (confirmPassword && password !== confirmPassword) {
+        document.getElementById('confirmPasswordError').style.display = 'block';
+      } else {
+        document.getElementById('confirmPasswordError').style.display = 'none';
+      }
+    });
+
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      applyTheme();
+      
+      // Add event listeners
+      document.addEventListener('click', handleOutsideClick);
+      
+      // Listen for system theme changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if (currentTheme === 'system') {
+          applyTheme();
+        }
+      });
+      
+      console.log('IngreChec Register page loaded successfully! <i class="fas fa-leaf"></i>');
+    });
+  </script>
+</body>
+</html>
