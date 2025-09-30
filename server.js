@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const upload = multer({ dest: "uploads/" });
-const OCR_API_KEY = "K88839716188957"; // OCR.space
+const OCR_API_KEY = "AIzaSyBWn-yGf-v-Vi3uGf7qPJJqyxnN38VO2w8"; // OCR.space
 const GEMINI_API_KEY = "AIzaSyBWn-yGf-v-Vi3uGf7qPJJqyxnN38VO2w8"; // Gemini AI
 const USERS_FILE = path.join(__dirname, "users.json");
 const HISTORY_FILE = path.join(__dirname, "history.json");
@@ -182,42 +182,59 @@ rl.question("Enter your AES key (16 chars for AES-128): ", (AES_KEY) => {
     return age;
   }
 
-  // ---------- OCR ----------
-  app.post("/ocr", upload.single("file"), async (req, res) => {
-    try {
-      if (!req.file) return res.json({ extracted_text: "❌ No file uploaded" });
-
-      const fileData = fs.readFileSync(req.file.path);
-      const base64Image = "data:image/png;base64," + fileData.toString("base64");
-
-      const response = await fetch("https://api.ocr.space/parse/image", {
+  // Call Gemini API (using OCR_API_KEY like before)
+    const response = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + OCR_API_KEY,
+      {
         method: "POST",
-        headers: { "apikey": OCR_API_KEY, "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({ base64Image, language: "eng", isOverlayRequired: "false" })
-      });
-
-      const result = await response.json();
-      let text = "⚠️ No text detected";
-      if (result?.ParsedResults?.length > 0) text = result.ParsedResults[0].ParsedText?.trim() || text;
-      else if (result?.ErrorMessage) text = "❌ API Error: " + result.ErrorMessage;
-
-      if (req.body.userId && text && text !== "⚠️ No text detected") {
-        const history = loadHistory();
-        history.push({
-          userId: req.body.userId,
-          text: encrypt(text),
-          timestamp: new Date().toISOString()
-        });
-        saveHistory(history);
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: "user",
+              parts: [
+                { text: "Extract all text from this image as accurately as possible:" },
+                {
+                  inline_data: {
+                    mime_type: "image/png", // keep fixed unless you want auto-detect
+                    data: base64Image
+                  }
+                }
+              ]
+            }
+          ]
+        })
       }
+    );
 
-      res.json({ extracted_text: text });
-    } catch (e) {
-      res.json({ extracted_text: "❌ OCR failed: " + e.message });
-    } finally {
-      if (req.file) fs.unlinkSync(req.file.path);
+    const result = await response.json();
+
+    let text = "⚠️ No text detected";
+    if (result?.candidates?.[0]?.content?.parts?.[0]?.text) {
+      text = result.candidates[0].content.parts[0].text.trim();
+    } else if (result?.error?.message) {
+      text = "❌ API Error: " + result.error.message;
     }
-  });
+
+    if (req.body.userId && text && text !== "⚠️ No text detected") {
+      const history = loadHistory();
+      history.push({
+        userId: req.body.userId,
+        ocr: encrypt(text),
+        input: "",
+        response: "",
+        timestamp: new Date().toISOString()
+      });
+      saveHistory(history);
+    }
+
+    res.json({ extracted_text: text });
+  } catch (e) {
+    res.json({ extracted_text: "❌ OCR failed: " + e.message });
+  } finally {
+    if (req.file) fs.unlinkSync(req.file.path);
+  }
+});
 
   // ---------- HISTORY ----------
   app.get("/history", (req, res) => {
