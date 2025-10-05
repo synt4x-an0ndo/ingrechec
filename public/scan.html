@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/logo2.png" type="image/png" />
+  <title>Ingre Scan | IngreChec</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* UPLOAD SECTION STYLES */
+    .ocr-section {
+      position: relative;
+    }
+
+    #dropArea {
+      position: relative;
+      border: 2px dashed var(--primary);
+      border-radius: 20px;
+      padding: 40px 20px;
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 25px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(22, 163, 74, 0.03);
+      overflow: hidden;
+    }
+
+    #dropArea::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(22, 163, 74, 0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    #dropArea:hover {
+      background: rgba(22, 163, 74, 0.08);
+      border-color: #15803d;
+      transform: translateY(-2px);
+    }
+
+    #dropArea:hover::before {
+      opacity: 1;
+    }
+
+    #dropArea.active {
+      background: rgba(22, 163, 74, 0.12);
+      border-color: #166534;
+      transform: scale(0.99);
+    }
+
+    #dropArea.active .upload-icon {
+      transform: scale(1.1);
+      color: #166534;
+    }
+
+    .upload-icon {
+      font-size: 4rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .upload-text {
+      margin-bottom: 20px;
+    }
+
+    .upload-text h3 {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+
+    .upload-text p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .browse-button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 6px -1px rgba(22, 163, 74, 0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .browse-button:hover {
+      background: #15803d;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 10px -1px rgba(22, 163, 74, 0.4);
+    }
+
+    .browse-button:active {
+      transform: translateY(0);
+    }
+
+    .supported-formats {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .format-tag {
+      background: var(--muted);
+      color: var(--text-light);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .image-preview {
+      margin-top: 25px;
+      background: var(--muted);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      height: 0;
+      transform: translateY(20px);
+    }
+
+    .image-preview.show {
+      opacity: 1;
+      height: auto;
+      transform: translateY(0);
+    }
+
+    .image-preview img {
+      max-width: 30%;
+      border-radius: 12px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-preview:hover img {
+      transform: scale(1.02);
+    }
+
+    .preview-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .preview-btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: none;
+    }
+
+    .preview-btn.primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .preview-btn.secondary {
+      background: transparent;
+      color: var(--text-light);
+      border: 1px solid var(--border);
+    }
+
+    .preview-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .upload-progress {
+      margin-top: 20px;
+      display: none;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #10b981;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+
+    .progress-text {
+      text-align: center;
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .upload-success {
+      text-align: center;
+      padding: 20px;
+      background: rgba(16, 185, 129, 0.1);
+      border-radius: 12px;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .success-icon {
+      font-size: 3rem;
+      color: #10b981;
+      margin-bottom: 10px;
+    }
+
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #86efac;
+      border-radius: 50%;
+      opacity: 0;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    @keyframes particle-float {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-40px) translateX(20px);
+        opacity: 0;
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      #dropArea {
+        padding: 30px 15px;
+      }
+      
+      .upload-icon {
+        font-size: 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo" onclick="navigateTo('dashboard.html')">
+      <img src="img/logo.png" alt="Logo" class="logo">
+    </div>
+    <div class="theme-dropdown">
+      <button class="theme-btn" id="theme-btn" onclick="toggleThemeMenu()">
+        <span id="theme-icon"><i class="fas fa-moon"></i></span>
+      </button>
+      <div class="theme-menu" id="theme-menu">
+        <button class="theme-option" onclick="setTheme('system')">
+          <i class="fas fa-desktop"></i> System
+        </button>
+        <button class="theme-option" onclick="setTheme('light')">
+          <i class="fas fa-sun"></i> Light
+        </button>
+        <button class="theme-option" onclick="setTheme('dark')">
+          <i class="fas fa-moon"></i> Dark
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="menu">
+      <button data-page="dashboard" onclick="navigateTo('dashboard.html')">
+        <i class="fas fa-home"></i> Dashboard
+      </button>
+      <button class="active" data-page="scan" onclick="navigateTo('scan.html')">
+        <i class="fas fa-camera"></i> Ingre Scan
+      </button>
+      <button data-page="history" onclick="navigateTo('history.html')">
+        <i class="fas fa-history"></i> History
+      </button>
+      <button class="btn logout" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+    <div class="header-right" id="welcomeName">Welcome!</div>
+  </section>
+
+  <main>
+    <div class="ocr-section">
+      <h2 class="section-title"><i class="fas fa-camera"></i> Scan Ingredients</h2>
+      
+      <!-- Updated Upload Area -->
+      <div id="dropArea" class="upload-area">
+        <div class="particles" id="particles"></div>
+        <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+        <div class="upload-text">
+          <h3>Drag & Drop or Click</h3>
+          <p>Upload PNG, JPG, GIF images</p>
+        </div>
+        <button class="browse-button">Browse Files</button>
+        <input type="file" id="fileInput" hidden accept="image/*">
+        
+        <div class="supported-formats">
+          <span class="format-tag">PNG</span>
+          <span class="format-tag">JPG</span>
+          <span class="format-tag">GIF</span>
+          <span class="format-tag">WEBP</span>
+        </div>
+      </div>
+
+      <!-- Upload Progress -->
+      <div class="upload-progress" id="uploadProgress">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">Uploading... 0%</div>
+      </div>
+
+      <!-- Image Preview -->
+      <div class="image-preview" id="previewContainer">
+        <!-- Preview content will be added here -->
+      </div>
+
+      <!-- Upload Success -->
+      <div class="upload-success" id="uploadSuccess">
+        <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+        <h3>Upload Successful!</h3>
+        <p>Your image has been uploaded successfully.</p>
+      </div>
+
+      <button class="btn extract" onclick="uploadImage()"><i class="fas fa-text"></i> Extract Text</button>
+      <button class="btn analyze" onclick="analyzeText()"><i class="fas fa-brain"></i> Analyze</button>
+      <textarea id="ocrResult" placeholder="Extracted text will appear here...
+Or Just Type Here."></textarea>
+      <div class="ai-output" id="aiOutput">AI analysis will appear here...</div>
+    </div>
+    <div class="note">
+      <p><i class="fas fa-info-circle"></i> Transparency Note: Our AI provides data-driven suggestions. For definitive food safety and nutritional advice, we recommend consulting certified professionals.</p>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="js/script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      setActiveNav('scan');
+      
+      // Initialize upload area functionality
+      initUploadArea();
+    });
+
+    function initUploadArea() {
+      const dropArea = document.getElementById('dropArea');
+      const fileInput = document.getElementById('fileInput');
+      const previewContainer = document.getElementById('previewContainer');
+      const uploadProgress = document.getElementById('uploadProgress');
+      const progressFill = document.getElementById('progressFill');
+      const progressText = document.getElementById('progressText');
+      const uploadSuccess = document.getElementById('uploadSuccess');
+      const particlesContainer = document.getElementById('particles');
+      const browseButton = dropArea.querySelector('.browse-button');
+      
+      // Create floating particles
+      function createParticles() {
+        for (let i = 0; i < 15; i++) {
+          const particle = document.createElement('div');
+          particle.classList.add('particle');
+          particle.style.left = `${Math.random() * 100}%`;
+          particle.style.top = `${Math.random() * 100}%`;
+          particle.style.animation = `particle-float ${3 + Math.random() * 4}s infinite`;
+          particle.style.animationDelay = `${Math.random() * 5}s`;
+          particlesContainer.appendChild(particle);
+        }
+      }
+      
+      createParticles();
+      
+      // Upload area interactions
+      dropArea.addEventListener('click', () => {
+        fileInput.click();
+      });
+      
+      browseButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fileInput.click();
+      });
+      
+      dropArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropArea.classList.add('active');
+      });
+      
+      dropArea.addEventListener('dragleave', () => {
+        dropArea.classList.remove('active');
+      });
+      
+      dropArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropArea.classList.remove('active');
+        
+        if (e.dataTransfer.files.length) {
+          handleFile(e.dataTransfer.files[0]);
+        }
+      });
+      
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length) {
+          handleFile(e.target.files[0]);
+        }
+      });
+      
+      // File handling
+      function handleFile(file) {
+        // Reset previous state
+        previewContainer.classList.remove('show');
+        uploadSuccess.style.display = 'none';
+        
+        // Check file size (10MB limit)
+        if (file.size > 10 * 1024 * 1024) {
+          alert('File size exceeds 10MB limit. Please choose a smaller file.');
+          return;
+        }
+        
+        // Show file info
+        const fileType = file.type.split('/')[0];
+        
+        if (fileType === 'image') {
+          const reader = new FileReader();
+          
+          reader.onload = function(e) {
+            previewContainer.innerHTML = `
+              <img src="${e.target.result}" alt="Preview">
+              <div class="preview-actions">
+                <button class="preview-btn primary" id="uploadBtn">Upload</button>
+                <button class="preview-btn secondary" id="cancelBtn">Cancel</button>
+              </div>
+            `;
+            
+            previewContainer.classList.add('show');
+            
+            // Add event listeners to buttons
+            document.getElementById('uploadBtn').addEventListener('click', () => {
+              uploadFile(file);
+            });
+            
+            document.getElementById('cancelBtn').addEventListener('click', () => {
+              previewContainer.classList.remove('show');
+              fileInput.value = '';
+            });
+          };
+          
+          reader.readAsDataURL(file);
+        } else {
+          // For non-image files
+          alert('Please upload an image file (PNG, JPG, GIF, WEBP).');
+          fileInput.value = '';
+        }
+      }
+      
+      // Simulate file upload
+      function uploadFile(file) {
+        uploadProgress.style.display = 'block';
+        previewContainer.classList.remove('show');
+        
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += Math.random() * 10;
+          if (progress >= 100) {
+            progress = 100;
+            clearInterval(interval);
+            
+            // Show success message after a short delay
+            setTimeout(() => {
+              uploadProgress.style.display = 'none';
+              uploadSuccess.style.display = 'block';
+              
+              // Auto-hide success message after 3 seconds
+              setTimeout(() => {
+                uploadSuccess.style.display = 'none';
+              }, 3000);
+            }, 500);
+          }
+          
+          progressFill.style.width = `${progress}%`;
+          progressText.textContent = `Uploading... ${Math.round(progress)}%`;
+        }, 200);
+      }
+    }
+  </script>
+</body>
+</html>

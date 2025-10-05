@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="img/logo2.png" type="image/png" />
-  <title>Dashboard | IngreChec</title>
+  <title>History | IngreChec</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -33,13 +33,13 @@
 
   <section>
     <div class="menu">
-      <button class="active" data-page="dashboard" onclick="navigateTo('dashboard.html')">
+      <button data-page="dashboard" onclick="navigateTo('dashboard.html')">
         <i class="fas fa-home"></i> Dashboard
       </button>
       <button data-page="scan" onclick="navigateTo('scan.html')">
         <i class="fas fa-camera"></i> Ingre Scan
       </button>
-      <button data-page="history" onclick="navigateTo('history.html')">
+      <button class="active" data-page="history" onclick="navigateTo('history.html')">
         <i class="fas fa-history"></i> History
       </button>
       <button class="btn logout" onclick="logout()">
@@ -50,41 +50,14 @@
   </section>
 
   <main>
-    <div class="user-card">
-      <h2 class="section-title"><i class="fas fa-user"></i> Your Information</h2>
-      <p><strong>Name:</strong> <span id="userName">Loading...</span></p>
-      <p><strong>Email:</strong> <span id="userEmail">Loading...</span></p>
-      <p><strong>User ID:</strong> <span id="userId">Loading...</span></p>
-      <p>
-        <strong>Health Issues:</strong>
-        <input type="text" id="userIssuesInput" placeholder="e.g. diabetes, hypertension">
-        <button class="btn analyze" onclick="saveHealthIssues()">Save</button>
-      </p>
-      <p>
-        <strong>Date of Birth:</strong>
-        <input type="date" id="userDOB" onchange="calculateAge()">
-        <button class="btn analyze" onclick="saveDOB()">Save/Update DOB</button>
-      </p>
-      <div class="age">
-        <span id="calculatedAge">Age: N/A</span>
-      </div>
-    </div>
-    <div class="features">
-      <h3 class="section-title"><i class="fas fa-star"></i> Features</h3>
-      <ul>
-        <li>Scan food ingredients using Ingre Scan</li>
-        <li>View scan history in History page</li>
-        <li>AI-powered food & health analysis</li>
-        <li>Secure and private with AES encryption</li>
-      </ul>
-    </div>
+    <h2 class="section-title"><i class="fas fa-history"></i> Scan History</h2>
+    <ul class="history-list" id="historyList"><li>Loading...</li></ul>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="js/script.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      setActiveNav('dashboard');
+      setActiveNav('history');
     });
   </script>
 </body>
