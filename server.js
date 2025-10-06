@@ -200,7 +200,7 @@ app.post("/ocr", upload.single("file"), async (req, res) => {
             {
               role: "user",
               parts: [
-                { text: "Extract all text from this image as accurately as possible. output will be only the extracted text" },
+                { text: "You are an ocr model in an website. Extract all text from this image as accurately as possible. if there is not text detected just write 'No text detected, Upload an image with ingredients list. -Admin' . output will be only the extracted text" },
                 {
                   inline_data: {
                     mime_type: "image/png", // fixed, can make auto if needed

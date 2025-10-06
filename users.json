@@ -126,5 +126,15 @@
       "180b8016e71a53a50852dd8d329e345c:bcbb09e458d3ce3f0a79039bcbd7a7ae"
     ],
     "dob": "555749946915e7580b69e4a307bc6a59:71c7659d455de07fde20de05ce511d86"
+  },
+  {
+    "userId": 13,
+    "fullName": "7bf3bcf95983aeee4d0b6e8f039dd301:069e85d7cc1b85d4994218f355453526",
+    "emailHash": "f8bd32c13403cb1c21c94cafcaf6ed5cabd906d30092d68ef3a06bcef704f9443aac438b3cd2986dd27ac07fa0ddf58c9d14a641d05484d04fd2b6244e3dbe8e",
+    "passwordHash": "b8f6b9ecb8f03acddcaa5c32eabd654f5bd2e1aabacf0ec189d9f518bdbdc1e501d59d06d4863beade2d5053cfdbd42b510abdb9723d667b6108241d54a5de61",
+    "healthIssues": [
+      "56324664ffc388a4e0d6d47674698b7f:ae0a7d4476bc5cffd0062e873fdb5b0b"
+    ],
+    "dob": null
   }
 ]
