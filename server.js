@@ -219,8 +219,8 @@ app.post("/ocr", upload.single("file"), async (req, res) => {
     );
 
     const result = await response.json();
-    let text = "⚠️ No text detected";
 
+    let text = "⚠️ No text detected";
     if (result?.candidates?.[0]?.content?.parts?.[0]?.text) {
       text = result.candidates[0].content.parts[0].text.trim();
     } else if (result?.error?.message) {
@@ -231,7 +231,9 @@ app.post("/ocr", upload.single("file"), async (req, res) => {
       const history = loadHistory();
       history.push({
         userId: req.body.userId,
-        text: encrypt(text),
+        ocr: encrypt(text),
+        input: "",
+        response: "",
         timestamp: new Date().toISOString()
       });
       saveHistory(history);
@@ -245,7 +247,7 @@ app.post("/ocr", upload.single("file"), async (req, res) => {
   }
 });
 
-  // ---------- HISTORY ----------
+ // ---------- HISTORY ----------
   app.get("/history", (req, res) => {
     const { userId } = req.query;
     if (!userId) return res.json({ history: [] });
@@ -253,7 +255,12 @@ app.post("/ocr", upload.single("file"), async (req, res) => {
     const history = loadHistory();
     const userHistory = history
       .filter(h => h.userId == userId)
-      .map(h => ({ text: decrypt(h.text), timestamp: h.timestamp }));
+      .map(h => ({
+        input: h.input ? decrypt(h.input) : "",
+        ocr: h.ocr ? decrypt(h.ocr) : "",
+        response: h.response ? decrypt(h.response) : "",
+        timestamp: h.timestamp
+      }));
 
     res.json({ history: userHistory });
   });
@@ -272,9 +279,11 @@ app.post("/ocr", upload.single("file"), async (req, res) => {
     res.json({ success: true });
   });
 
+
   // ---------- AI ANALYZE ----------
   app.post("/analyze", async (req, res) => {
-    const { text, healthIssues, dob } = req.body;
+    const { text, healthIssues, dob, userId } = req.body;
+
     if (!text) return res.json({ success: false, analysis: "No text provided" });
 
     try {
@@ -320,6 +329,17 @@ Rules:
 
       const aiData = await aiResponse.json();
       const analysis = aiData?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "⚠️ No analysis returned";
+ if (userId && text && analysis) {
+      const history = loadHistory();
+      history.push({
+        userId,
+        ocr: "",
+        input: encrypt(text),
+        response: encrypt(analysis),
+        timestamp: new Date().toISOString()
+      });
+      saveHistory(history);
+    }
 
       res.json({ success: true, analysis });
     } catch (err) {
