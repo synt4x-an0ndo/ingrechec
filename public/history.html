@@ -88,37 +88,37 @@
         });
 
         async function loadHistory(){
-            const user = JSON.parse(localStorage.getItem("user")||"{}");
-            const list = document.getElementById("historyList");
-            list.innerHTML = "Loading...";
-            try{
-                const res = await fetch("/history?userId="+encodeURIComponent(user.userId));
-                const data = await res.json();
-                if(!data.history || data.history.length===0) {
-                    list.innerHTML = "<li>No history yet.</li>";
-                } else {
-                    list.innerHTML = "";
-                    data.history.forEach((h,i)=>{
-                        const li = document.createElement("li");
-                        li.className = "history-item";
-                        
-                        // Summary view
-                        li.innerHTML = `
-                            <div class="history-summary" onclick="toggleHistory(${i})">
-                                <strong>Entry ${i+1}</strong> - ${new Date(h.timestamp || Date.now()).toLocaleString()}
-                            </div>
-                            <div class="history-details" id="historyDetails${i}" style="display:none;">
-                               
-                                <p><strong>Text:</strong> ${h.input || "N/A"}</p>
-                                <p><strong>AI Response:</strong> ${marked.parse(h.response) || "N/A"}</p>
-                                <button onclick="deleteHistory(${i})">Delete</button>
-                            </div>
-                        `;
-                        list.appendChild(li);
-                    });
-                }
-            } catch(err){ list.innerHTML = "<li>Error loading history.</li>"; }
-        }
+  const user = JSON.parse(localStorage.getItem("user")||"{}");
+  const list = document.getElementById("historyList");
+  list.innerHTML = "Loading...";
+  try{
+    const res = await fetch("/history?userId="+encodeURIComponent(user.userId));
+    const data = await res.json();
+    if(!data.history || data.history.length===0) {
+      list.innerHTML = "<li>No history yet.</li>";
+    } else {
+      list.innerHTML = "";
+      data.history.forEach((h,i)=>{
+        const li = document.createElement("li");
+        li.className = "history-item";
+        
+        li.innerHTML = `
+          <div class="history-summary" onclick="toggleHistory(${i})">
+            <strong>Entry ${i+1}</strong> - ${new Date(h.timestamp || Date.now()).toLocaleString()}
+          </div>
+          <div class="history-details" id="historyDetails${i}" style="display:none;">
+            <p><strong>Text:</strong> ${h.input || "N/A"}</p>
+            <button onclick="deleteHistory(${i})">Delete</button>
+            <button style=" background: green; " onclick="copy(${i})">Copy Text</button>
+          </div>
+        `;
+        list.appendChild(li);
+      });
+    }
+  } catch(err){ 
+    list.innerHTML = "<li>Error loading history.</li>"; 
+  }
+}
 
         function toggleHistory(index){
             const details = document.getElementById("historyDetails"+index);
@@ -139,6 +139,22 @@
                 else alert("❌ Failed to delete history.");
             } catch(err){ alert("❌ Server error."); }
         }
+       async function copy(index) {
+  const textElement = document.querySelector(`#historyDetails${index} p`);
+  if (!textElement) return alert("Text not found!");
+
+  const text = textElement.innerText.replace(/^Text:\s*/, ""); // remove "Text:" prefix
+  try {
+    await navigator.clipboard.writeText(text);
+    const btn = document.querySelector(`#historyDetails${index} button:nth-of-type(2)`);
+    const originalText = btn.textContent;
+    btn.textContent = "Copied!";
+    setTimeout(() => (btn.textContent = originalText), 1500);
+  } catch (err) {
+    alert("❌ Failed to copy!");
+  }
+}
+
     </script>
 </body>
 </html>
