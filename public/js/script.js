@@ -183,7 +183,13 @@ async function analyzeText() {
   const text = document.getElementById("ocrResult").value;
   if (!text.trim()) return alert("No text to analyze!");
   const aiOutput = document.getElementById("aiOutput");
-  aiOutput.textContent = "⏳ AI analyzing...";
+  aiOutput.innerHTML = `
+  <div class="spinner-container">
+    <div class="spinner"></div>
+    <span>AI analyzing...</span>
+  </div>
+`;
+
   try {
     const res = await fetch("/analyze", {
       method: "POST",

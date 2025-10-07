@@ -12,8 +12,12 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const upload = multer({ dest: "uploads/" });
-const OCR_API_KEY = "AIzaSyBWn-yGf-v-Vi3uGf7qPJJqyxnN38VO2w8"; // OCR.space
-const GEMINI_API_KEY = "AIzaSyBWn-yGf-v-Vi3uGf7qPJJqyxnN38VO2w8"; // Gemini AI
+import dotenv from "dotenv";
+dotenv.config();
+
+const OCR_API_KEY = process.env.OCR_API_KEY;
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
 const USERS_FILE = path.join(__dirname, "users.json");
 const HISTORY_FILE = path.join(__dirname, "history.json");
 
