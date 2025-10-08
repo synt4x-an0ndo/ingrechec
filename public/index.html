@@ -8,8 +8,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #16a34a;
-      --primary-hover: #22c55e;
+      --primary: #166ba3;
+      --primary-hover: #2269c5;
       --background: #ffffff;
       --foreground: #0f0f0f;
       --muted: #ffffff;
@@ -17,9 +17,9 @@
       --border: #e5e7eb;
       --card: #ffffff;
       --card-foreground: #0f0f0f;
-      --ring: #16a34a;
+      --ring: #165fa3;
       --transition: all 0.3s ease;
-      --glass-green: rgba(22, 163, 74, 0.8);
+      --glass-green: rgba(22, 100, 163, 0.8);
     }
 
     .dark {
@@ -30,7 +30,7 @@
       --border: #374151;
       --card: #1f2937;
       --card-foreground: #f9fafb;
-      --glass-green: rgba(22, 163, 74, 0.6);
+      --glass-green: rgba(22, 111, 163, 0.6);
     }
 
     * {
@@ -118,7 +118,7 @@
       font-weight: bold;
       color: white;
       background-color: rgba(0, 0, 0, 1);
-      border: 2px solid rgba(22, 163, 74, 0.8);
+      border: 2px solid rgba(22, 111, 163, 0.8);
       border-radius: 100px;
         text-decoration: none;
       cursor: pointer;
@@ -137,7 +137,7 @@
       background: linear-gradient(
         120deg,
         rgba(57, 255, 20, 0) 0%,
-        rgba(63, 201, 113, 0.8) 50%,
+        rgba(63, 146, 201, 0.8) 50%,
         rgba(57, 255, 20, 0) 100%
       );
       transform: skewX(-25deg);
@@ -151,7 +151,7 @@
     
 
     .btn:hover {
-      box-shadow: 0 0 2px #39FF14, 0 0 4px #39FF14, 0 0 8px #39FF14;
+      box-shadow: 0 0 2px #14c8ff, 0 0 4px #14b5ff, 0 0 8px #1466ff;
     }
 
     .btn:hover::before {
@@ -1079,9 +1079,9 @@
       animation: pulse 2s infinite;
     }
 
-    .dot-1 { background: #22c55e; }
+    .dot-1 { background: #2291c5; }
     .dot-2 { background: var(--primary); animation-delay: 0.5s; }
-    .dot-3 { background: #16a34a; animation-delay: 1s; }
+    .dot-3 { background: #1637a3; animation-delay: 1s; }
 
     /* Animations */
     @keyframes float {
@@ -1219,7 +1219,7 @@
       height: 50px;
     }
     #mouse-glow {
-  background: radial-gradient(circle at 0 0, rgba(22, 163, 74, 0.2), transparent 80%);
+  background: radial-gradient(circle at 0 0, rgba(22, 55, 163, 0.2), transparent 80%);
   transition: background 0.1s ease;
 }
 
