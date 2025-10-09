@@ -280,6 +280,106 @@
         font-size: 3rem;
       }
     }
+    .loader-container {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #2e2e2e;
+  border-radius: 16px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  margin: 20px auto;
+}
+
+.loader-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  position: relative;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.dots {
+  position: absolute;
+  left: 10px;
+  display: flex;
+  gap: 5px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.red { background-color: #ef4444; }
+.yellow { background-color: #facc15; }
+.green { background-color: #22c55e; }
+
+.type-text {
+  font-size: 12px;
+  font-weight: bolder;
+  color: #9ca3af;
+  text-align: center;
+  
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  -webkit-background-clip: text;
+  color: transparent;
+  white-space: nowrap;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.code-area {
+  height: 220px;
+  overflow: hidden;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.code-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 3px;
+  opacity: 0;
+  transform: translateX(-10px);
+  animation: appear 0.25s ease-out forwards;
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.segment {
+  height: 10px;
+  border-radius: 3px;
+  opacity: 0.5;
+}
+
+.bg-gray-500 { background-color: #6b7280; }
+.bg-teal-500 { background-color: #14b8a6; }
+.bg-blue-500 { background-color: #3b82f6; }
+.bg-gray-600 { background-color: #4b5563; }
+.bg-pink-500 { background-color: #ec4899; }
+
+.cursor {
+  width: 3px;
+  height: 14px;
+  background-color: #3b82f6;
+  animation: blink 0.6s infinite;
+  margin-left: 4px;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
   </style>
 </head>
 <body>
@@ -523,6 +623,69 @@ Or Just Type Here."></textarea>
           progressText.textContent = `Uploading... ${Math.round(progress)}%`;
         }, 200);
       }
+    }
+    const testimonials = [
+      {
+        name: "Ava Thompson",
+        handle: "@ava_thompson",
+        review: "ScrollX UI is a game-changer! The animations are smooth, and the UI is beyond stunning.",
+        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop&ixlib=rb-4.0.3"
+      },
+      {
+        name: "Elijah Carter",
+        handle: "@elijah_ui",
+        review: "Absolutely mesmerizing! The attention to detail in ScrollX UI is incredible.",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop&ixlib=rb-4.0.3"
+      },
+      {
+        name: "Sophia Martinez",
+        handle: "@sophia_codes",
+        review: "As a front-end developer, I love how intuitive and powerful ScrollX UI is. It's a must-have tool!",
+        avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=100&auto=format&fit=crop&ixlib=rb-4.0.3"
+      },
+      {
+        name: "Michael Brown",
+        handle: "@michaelb_dev",
+        review: "This changed the way I build interfaces. The animations are top-notch!",
+        avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=100&auto=format&fit=crop&ixlib=rb-4.0.3"
+      }
+    ];
+
+    const container = document.getElementById("kinetic");
+    const columnsCount = 3; // number of columns
+
+    for (let i = 0; i < columnsCount; i++) {
+      const column = document.createElement("div");
+      column.className = "testimonial-column" + (i % 2 === 1 ? " reverse" : "");
+
+      testimonials.forEach(t => {
+        const card = document.createElement("div");
+        card.className = "testimonial-card";
+
+        card.innerHTML = `
+          <img src="${t.avatar}" class="testimonial-avatar" />
+          <div class="testimonial-name">${t.name}</div>
+          <div class="testimonial-handle">${t.handle}</div>
+          <div class="testimonial-review">"${t.review}"</div>
+        `;
+        column.appendChild(card);
+      });
+
+      // Duplicate for continuous scroll effect
+      testimonials.forEach(t => {
+        const card = document.createElement("div");
+        card.className = "testimonial-card";
+
+        card.innerHTML = `
+          <img src="${t.avatar}" class="testimonial-avatar" />
+          <div class="testimonial-name">${t.name}</div>
+          <div class="testimonial-handle">${t.handle}</div>
+          <div class="testimonial-review">"${t.review}"</div>
+        `;
+        column.appendChild(card);
+      });
+
+      container.appendChild(column);
     }
   </script>
 </body>

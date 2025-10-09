@@ -183,12 +183,29 @@ async function analyzeText() {
   const text = document.getElementById("ocrResult").value;
   if (!text.trim()) return alert("No text to analyze!");
   const aiOutput = document.getElementById("aiOutput");
+
   aiOutput.innerHTML = `
-  <div class="spinner-container">
-    <div class="spinner"></div>
-    <span>AI analyzing...</span>
+  <div class="modern-loader">
+    <div class="loader-container">
+      <div class="loader-header">
+        <div class="dots">
+          <div class="dot red"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="type-text" id="loaderTypewriter">Analyzing...</div>
+      </div>
+      <div class="code-area" id="loaderCodeArea">
+        <div class="cursor"></div>
+      </div>
+    </div>
   </div>
-`;
+  `;
+
+  // Run Modern Loader logic
+  startModernLoader();
+
+
 
   try {
     const res = await fetch("/analyze", {
@@ -200,6 +217,63 @@ async function analyzeText() {
     if (data.success) aiOutput.innerHTML = marked.parse(data.analysis);
     else aiOutput.textContent = "❌ AI analysis failed.";
   } catch (err) { aiOutput.textContent = "❌ AI analysis failed."; }
+}
+
+function startModernLoader() {
+  const words = [
+    "Initializing ingredient scan…",
+  "Analyzing additive patterns…",
+  "Detecting allergen traces…",
+  "Processing nutrient data…",
+  "Evaluating sugar-fat-sodium ratio…",
+  "Assessing cardiovascular impact…",
+  "Computing nutritional balance…",
+  "Cross-checking safety standards…",
+  "Mapping ingredient health effects…",
+  "Generating adaptive insights…",
+  "Compiling result summary…",
+  "Finalizing health verdict…"
+
+  ];
+
+  const colors = [
+    "bg-gray-500",
+    "bg-teal-500",
+    "bg-blue-500",
+    "bg-gray-600",
+    "bg-pink-500",
+  ];
+
+  const typewriter = document.getElementById("loaderTypewriter");
+  const codeArea = document.getElementById("loaderCodeArea");
+  let wordIndex = 0;
+
+  function typeEffect() {
+    typewriter.textContent = words[wordIndex];
+    wordIndex = (wordIndex + 1) % words.length;
+  }
+  setInterval(typeEffect, 2000);
+
+  function createLine() {
+    const line = document.createElement("div");
+    line.className = "code-line";
+
+    const segCount = Math.floor(Math.random() * 4) + 1;
+    for (let i = 0; i < segCount; i++) {
+      const seg = document.createElement("div");
+      seg.className = "segment " + colors[Math.floor(Math.random() * colors.length)];
+      seg.style.width = `${Math.floor(Math.random() * 80) + 50}px`;
+      line.appendChild(seg);
+    }
+    codeArea.insertBefore(line, codeArea.lastElementChild);
+
+    const maxLines = 25;
+    while (codeArea.children.length > maxLines) {
+      codeArea.removeChild(codeArea.firstChild);
+    }
+  }
+
+  setInterval(createLine, 200);
 }
 
 // ---------- History ----------
