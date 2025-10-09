@@ -362,3 +362,11 @@ function initPage() {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', initPage);
+ const glow = document.getElementById('mouse-glow');
+
+  window.addEventListener('mousemove', (e) => {
+    const x = e.clientX;
+    const y = e.clientY;
+
+    glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(22, 163, 74, 0.25), transparent 80%)`;
+  });

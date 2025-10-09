@@ -47,9 +47,16 @@
     .flatpickr-prev-month, .flatpickr-next-month {
       color: #fff;
     }
+    #mouse-glow {
+  background: radial-gradient(circle at 0 0, rgba(22, 163, 74, 0.2), transparent 80%);
+  transition: background 0.1s ease;
+}
   </style>
 </head>
+
 <body>
+  <div id="mouse-glow" style="pointer-events: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
+
   <header>
     <div class="logo" onclick="navigateTo('dashboard.html')">
       <img src="img/logo.png" alt="Logo" class="logo">
@@ -135,6 +142,14 @@
     document.addEventListener('DOMContentLoaded', function() {
       setActiveNav('dashboard');
     });
+     const glow = document.getElementById('mouse-glow');
+
+  window.addEventListener('mousemove', (e) => {
+    const x = e.clientX;
+    const y = e.clientY;
+
+    glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(22, 163, 74, 0.25), transparent 80%)`;
+  });
   </script>
 </body>
 </html>
