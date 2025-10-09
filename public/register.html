@@ -7,20 +7,21 @@
   <title>Register - IngreChec</title>
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <link rel="stylesheet" href="index.css">
   <style>
     :root {
-      --primary: #16a34a;
-      --primary-hover: #22c55e;
+    --primary: #166ba3;
+      --primary-hover: #2269c5;
       --background: #ffffff;
       --foreground: #0f0f0f;
-      --muted: #f6f6f6;
+      --muted: #ffffff;
       --muted-foreground: #6b7280;
       --border: #e5e7eb;
       --card: #ffffff;
       --card-foreground: #0f0f0f;
-      --ring: #16a34a;
+      --ring: #165fa3;
       --transition: all 0.3s ease;
-      --glass-green: rgba(22, 163, 74, 0.8);
+      --glass-green: rgba(22, 100, 163, 0.8);
       --error: #ef4444;
       --error-bg: #fef2f2;
       --success: #16a34a;
@@ -28,14 +29,14 @@
     }
 
     .dark {
-      --background: #0f0f0f;
-      --foreground: #f9fafb;
-      --muted: #1f2937;
-      --muted-foreground: #9ca3af;
-      --border: #374151;
-      --card: #1f2937;
-      --card-foreground: #f9fafb;
-      --glass-green: rgba(22, 163, 74, 0.6);
+       --background: #0f0f0f;
+  --foreground: #f9fafb;
+  --muted: #1f2937;
+  --muted-foreground: #9ca3af;
+  --border: #374151;
+  --card: #1f2937;
+  --card-foreground: #f9fafb;
+  --glass-green: rgba(22, 163, 74, 0.6);
       --error: #f87171;
       --error-bg: #7f1d1d;
       --success: #4ade80;
@@ -166,7 +167,7 @@
       border: none;
       background: transparent;
       cursor: pointer;
-      border: 2px solid #16a34a;
+      border: 2px solid var(--primary);
      border-radius: 25px;
       
       display: flex;

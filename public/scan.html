@@ -624,69 +624,7 @@ Or Just Type Here."></textarea>
         }, 200);
       }
     }
-    const testimonials = [
-      {
-        name: "Ava Thompson",
-        handle: "@ava_thompson",
-        review: "ScrollX UI is a game-changer! The animations are smooth, and the UI is beyond stunning.",
-        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop&ixlib=rb-4.0.3"
-      },
-      {
-        name: "Elijah Carter",
-        handle: "@elijah_ui",
-        review: "Absolutely mesmerizing! The attention to detail in ScrollX UI is incredible.",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop&ixlib=rb-4.0.3"
-      },
-      {
-        name: "Sophia Martinez",
-        handle: "@sophia_codes",
-        review: "As a front-end developer, I love how intuitive and powerful ScrollX UI is. It's a must-have tool!",
-        avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=100&auto=format&fit=crop&ixlib=rb-4.0.3"
-      },
-      {
-        name: "Michael Brown",
-        handle: "@michaelb_dev",
-        review: "This changed the way I build interfaces. The animations are top-notch!",
-        avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=100&auto=format&fit=crop&ixlib=rb-4.0.3"
-      }
-    ];
-
-    const container = document.getElementById("kinetic");
-    const columnsCount = 3; // number of columns
-
-    for (let i = 0; i < columnsCount; i++) {
-      const column = document.createElement("div");
-      column.className = "testimonial-column" + (i % 2 === 1 ? " reverse" : "");
-
-      testimonials.forEach(t => {
-        const card = document.createElement("div");
-        card.className = "testimonial-card";
-
-        card.innerHTML = `
-          <img src="${t.avatar}" class="testimonial-avatar" />
-          <div class="testimonial-name">${t.name}</div>
-          <div class="testimonial-handle">${t.handle}</div>
-          <div class="testimonial-review">"${t.review}"</div>
-        `;
-        column.appendChild(card);
-      });
-
-      // Duplicate for continuous scroll effect
-      testimonials.forEach(t => {
-        const card = document.createElement("div");
-        card.className = "testimonial-card";
-
-        card.innerHTML = `
-          <img src="${t.avatar}" class="testimonial-avatar" />
-          <div class="testimonial-name">${t.name}</div>
-          <div class="testimonial-handle">${t.handle}</div>
-          <div class="testimonial-review">"${t.review}"</div>
-        `;
-        column.appendChild(card);
-      });
-
-      container.appendChild(column);
-    }
+    
   </script>
 </body>
 </html>

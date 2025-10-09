@@ -9,7 +9,9 @@
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <div id="mouse-glow" style="pointer-events: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
+  <div class="bg-gradient-layer"></div>
+<div id="mouse-glow"></div>
+
 
   <!-- Header -->
   <header class="header" id="header">
@@ -217,7 +219,7 @@
           <div class="trust-badges">
             <span class="badge badge-green animate-on-scroll"><i class="fas fa-shield-alt"></i> Privacy First</span>
             <span class="badge badge-blue animate-on-scroll"><i class="fas fa-sync"></i> Regular Updates</span>
-            <span class="badge badge-purple animate-on-scroll"><i class="fas fa-globe"></i> Multi-Language</span>
+            
           </div>
         </div>
         
@@ -375,7 +377,7 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
-        <div class="footer-logo">
+        <div class="footer-logo" onclick="scrollToTop()">
           <img src="img/logo.png" alt=" Logo" class="logo">
         </div>
         
@@ -518,14 +520,15 @@
     });
      const glow = document.getElementById('mouse-glow');
 
-  window.addEventListener('mousemove', (e) => {
-    const x = e.clientX;
-    const y = e.clientY;
+window.addEventListener('mousemove', (e) => {
+  const x = e.clientX;
+  const y = e.clientY;
+  glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(22, 163, 74, 0.25), transparent 80%)`;
 
-    glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(22, 163, 74, 0.2), transparent 80%)`;
+
   });
   const testimonials = [
-  { name:"Ava Thompson", handle:"@ava_thompson", review:"ScrollX UI is a game-changer!", avatar:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100" },
+  { name:"Ava Thompson", handle:"ava_thompson", review:"ScrollX UI is a game-changer!", avatar:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100" },
   { name:"Elijah Carter", handle:"@elijah_ui", review:"Absolutely mesmerizing!", avatar:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100" },
   { name:"Sophia Martinez", handle:"@sophia_codes", review:"Intuitive and powerful!", avatar:"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=100" },
   { name:"Michael Brown", handle:"@michaelb_dev", review:"Animations are top-notch!", avatar:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=100" },
