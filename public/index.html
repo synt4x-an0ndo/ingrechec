@@ -7,6 +7,135 @@
   <title>IngreChec - Scan Before You Eat</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="index.css">
+  <style>
+/* Layout */
+.steps-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+/* Spotlight Card Styling */
+.spotlight-card {
+  position: relative;
+  width: 320px;
+  height: 280px;
+  border-radius: 16px;
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    700px circle at var(--mouse-x) var(--mouse-y),
+    rgba(34, 211, 238, 0.08),
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+.spotlight-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.card-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.card-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    rgba(34, 211, 238, 0.15),
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.spotlight-card:hover .card-border {
+  opacity: 1;
+}
+
+.card-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(
+    500px circle at var(--mouse-x) var(--mouse-y),
+    rgba(34, 211, 238, 0.05),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.spotlight-card:hover .card-glow {
+  opacity: 1;
+}
+
+/* Text and icons */
+.step-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+
+h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 8px;
+}
+
+p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .spotlight-card {
+    width: 90%;
+    height: auto;
+  }
+}
+</style>
 </head>
 <body>
   <div class="bg-gradient-layer"></div>
@@ -127,42 +256,53 @@
 
   <!-- Steps Section -->
   <section class="steps" id="steps">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <h2 class="section-title"><i class="fas fa-list-ol"></i> How It Works</h2>
-        <p class="section-subtitle">Three simple steps to identify ingredients and make informed food choices</p>
-      </div>
-      
-      <div class="steps-grid">
-        <div class="step-card animate-on-scroll">
-          <div class="step-icon" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;">
+  <div class="container">
+    <div class="section-header animate-on-scroll">
+      <h2 class="section-title"><i class="fas fa-list-ol"></i> How It Works</h2>
+      <p class="section-subtitle">
+        Three simple steps to identify ingredients and make informed food choices
+      </p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card spotlight-card animate-on-scroll">
+        <div class="card-glow"></div>
+        <div class="card-border"></div>
+        <div class="card-content">
+          <div class="step-icon" style="background: rgba(59,130,246,0.1); color:#3b82f6;">
             <i class="fas fa-camera"></i>
           </div>
           <h3>Scan Product</h3>
           <p>Use your phone's camera to scan the barcode or take a picture of the ingredients list.</p>
-          <div class="step-number">.</div>
         </div>
-        
-        <div class="step-card animate-on-scroll">
-          <div class="step-icon" style="background: rgba(147, 51, 234, 0.1); color: #9333ea;">
+      </div>
+
+      <div class="step-card spotlight-card animate-on-scroll">
+        <div class="card-glow"></div>
+        <div class="card-border"></div>
+        <div class="card-content">
+          <div class="step-icon" style="background: rgba(147,51,234,0.1); color:#9333ea;">
             <i class="fas fa-search"></i>
           </div>
           <h3>Analyze Ingredients</h3>
           <p>Our AI analyzes the ingredients and identifies potential allergens or dietary concerns.</p>
-          <div class="step-number">.</div>
         </div>
-        
-        <div class="step-card animate-on-scroll">
-          <div class="step-icon" style="background: rgba(22, 163, 74, 0.1); color: #16a34a;">
+      </div>
+
+      <div class="step-card spotlight-card animate-on-scroll">
+        <div class="card-glow"></div>
+        <div class="card-border"></div>
+        <div class="card-content">
+          <div class="step-icon" style="background: rgba(22,163,74,0.1); color:#16a34a;">
             <i class="fas fa-check-circle"></i>
           </div>
           <h3>Get Results</h3>
           <p>Receive instant feedback about the product's suitability for your dietary needs.</p>
-          <div class="step-number">.</div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Features Section -->
   <section class="features" id="features">
@@ -246,31 +386,32 @@
         <div class="author">- Gm Anondo</div>
       </div>
       
-      <div class="highlights-grid">
-        <div class="highlight-card animate-on-scroll">
-          <div class="highlight-icon">
-            <i class="fas fa-lightbulb"></i>
-          </div>
-          <h3>Our Vision</h3>
-          <p>A world where everyone can eat safely and knowledgeably.</p>
-        </div>
-        
-        <div class="highlight-card animate-on-scroll">
-          <div class="highlight-icon">
-            <i class="fas fa-rocket"></i>
-          </div>
-          <h3>Our Mission</h3>
-          <p>To make food ingredient information accessible to everyone.</p>
-        </div>
-        
-        <div class="highlight-card animate-on-scroll">
-          <div class="highlight-icon">
-            <i class="fas fa-handshake"></i>
-          </div>
-          <h3>Our Promise</h3>
-          <p>Accuracy, privacy, and user-focused innovation.</p>
-        </div>
+      
+  <div class="highlights-grid">
+    <div class="highlight-card animate-on-scroll">
+      <div class="highlight-icon">
+        <i class="fas fa-lightbulb"></i>
       </div>
+      <h3>Our Vision</h3>
+      <p>A world where everyone can eat safely and knowledgeably.</p>
+    </div>
+
+    <div class="highlight-card animate-on-scroll">
+      <div class="highlight-icon">
+        <i class="fas fa-rocket"></i>
+      </div>
+      <h3>Our Mission</h3>
+      <p>To make food ingredient information accessible to everyone.</p>
+    </div>
+
+    <div class="highlight-card animate-on-scroll">
+      <div class="highlight-icon">
+        <i class="fas fa-handshake"></i>
+      </div>
+      <h3>Our Promise</h3>
+      <p>Accuracy, privacy, and user-focused innovation.</p>
+    </div>
+  </div>
       
       <div class="future-updates animate-on-scroll">
         <h3 class="section-title"><i class="fas fa-road"></i> Coming Soon</h3>
@@ -314,17 +455,20 @@
           </div>
         </div>
       </div>
+    
+ <section>
+  <div class="highlights-grid about" style="padding-top: 50px;">
+    <div class="future-updates animate-on-scroll">
+      <div class="container">
+        <div class="testimonial-section">
+          <h2 style="text-align: center; font-size: 40px; padding-bottom: 20px;">User Reviews</h2>
+          <div class="columns" id="columns">
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
-<section class="about">
-  <div class="container">
-  <div class="testimonial-section">
-  <h2>Customer Reviews</h2>
-  <div class="columns" id="columns">
-    <!-- Columns will be generated here -->
   </div>
-</div>
-  </div>
+ </section>
 </section>
   <!-- CTA Section -->
   <section class="cta" id="cta">
@@ -400,8 +544,25 @@
       </div>
     </div>
   </footer>
-
+<script src="https://kit.fontawesome.com/a2e0e9d6d3.js" crossorigin="anonymous"></script>
   <script>
+    const cards = document.querySelectorAll('.highlight-card');
+
+    cards.forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--x', `${x}px`);
+        card.style.setProperty('--y', `${y}px`);
+      });
+
+      card.addEventListener('mouseleave', () => {
+        // Reset position smoothly
+        card.style.setProperty('--x', `50%`);
+        card.style.setProperty('--y', `50%`);
+      });
+    });
     // Theme functionality
     function setTheme(theme) {
       if (theme === 'dark') {
@@ -528,10 +689,30 @@ window.addEventListener('mousemove', (e) => {
 
   });
   const testimonials = [
-  { name:"Ava Thompson", handle:"ava_thompson", review:"ScrollX UI is a game-changer!", avatar:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100" },
-  { name:"Elijah Carter", handle:"@elijah_ui", review:"Absolutely mesmerizing!", avatar:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100" },
-  { name:"Sophia Martinez", handle:"@sophia_codes", review:"Intuitive and powerful!", avatar:"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=100" },
-  { name:"Michael Brown", handle:"@michaelb_dev", review:"Animations are top-notch!", avatar:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=100" },
+  { 
+    name: "Araf Rahman", 
+    handle: "@araf_reviews", 
+    review: "IngreChec is super easy to use — clean UI and quick results!", 
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100"
+  },
+  { 
+    name: "Mahi Islam", 
+    handle: "@mahi_islm", 
+    review: "User-friendly app! Scanning food labels feels so smooth and fast.", 
+    avatar: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?q=80&w=100"
+  },
+  { 
+    name: "Samiul Hasan", 
+    handle: "@sami_ai", 
+    review: "Valo AI analysis kore! Instantly shows what’s good or harmful for me.", 
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100"
+  },
+  { 
+    name: "Nusrat Chowdhury", 
+    handle: "@nusratc", 
+    review: "Love the design and accuracy! IngreChec makes healthy choices simple.", 
+    avatar: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=100"
+  },
 ];
 
 function createColumn(testimonials, reverse=false) {
@@ -568,6 +749,22 @@ const columnsContainer = document.getElementById('columns');
 columnsContainer.appendChild(createColumn(testimonials));
 columnsContainer.appendChild(createColumn(testimonials, true));
 columnsContainer.appendChild(createColumn(testimonials));
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.spotlight-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.setProperty('--mouse-x', '50%');
+      card.style.setProperty('--mouse-y', '50%');
+    });
+  });
+});
   </script>
 </body>
 </html>
