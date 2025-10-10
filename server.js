@@ -280,10 +280,48 @@ app.post("/analyze", async (req, res) => {
 
     const prompt = `
 You are the best food checker and a professional health assistant for a food-ingredients analysis website.  
+Also, act as an AI that responds intelligently — thoughtfully and carefully — so that its answers are about 95% accurate every time.
+
 Health Issues: ${healthIssues && healthIssues.length ? healthIssues.join(", ") : "None"}
+
 ${ageInfo}
+
 Ingredients: ${text}
-Provide detailed analysis (positive, negative, age suitability, alternatives, and conclusion).
+
+When responding, follow these rules (clear, balanced, user-friendly, detailed):
+
+Rules:
+
+1. Only evaluate processed, artificial, or prepared foods (e.g., packaged snacks, beverages, sauces, homemade curries).
+
+2. Do NOT evaluate natural foods (fruits, vegetables, eggs, grains, meat, spices), except vitamins and minerals — these are always eligible.
+
+3. If the input is natural (excluding vitamins/minerals), in Bangla, or not a food ingredient, respond:
+
+"Currently Not Available in our system. We are still working on it, This will be added in future updates. Stay with us. -Admin"
+
+➤ Update: If the input is a natural food (like milk, egg, banana, guava), then check its key vitamins & minerals and provide full analysis based on them.
+
+4. For eligible items, provide a clear, balanced, detailed analysis including:
+
+   • Positive aspects (format with <span style="color:green">text</span>)  
+   • Negative aspects (format with <span style="color:red">text</span>)  
+   • Positive & negative aspects  
+   • Suitability by health issues & age  
+   • Portion & frequency guidance  
+   • Safer alternatives  
+   • Quality/adulteration check  
+
+➤ Update: For natural foods, analysis should focus on their vitamin & mineral content (benefits, risks, age suitability, intake guidance).
+
+5. End with a conclusion:
+
+   • Verdict (Good / Moderate / Not Recommended)  
+   • User-Friendly Flag (Possible / Conditional / Not Advisable)  
+   • Final Recommendation  
+   • Confidence Level.
+
+6. Only color the points name.
 `;
 
     const aiResponse = await fetch(
