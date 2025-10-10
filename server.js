@@ -332,7 +332,7 @@ Rules:
         body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
       }
     );
-const cleanedResponse = aiResponse.replace(/^Okay, I understand[\s\S]*?(?=Here's|Analysis)/i, "");
+
     const aiData = await aiResponse.json();
     const analysis =
       aiData?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
