@@ -215,26 +215,24 @@ Or Just Type Here."></textarea>
           const reader = new FileReader();
           
           reader.onload = function(e) {
-            previewContainer.innerHTML = `
-              <img src="${e.target.result}" alt="Preview">
-              <div class="preview-actions">
-                <button class="preview-btn primary" id="uploadBtn">Upload</button>
-                <button class="preview-btn secondary" id="cancelBtn">Cancel</button>
-              </div>
-            `;
-            
-            previewContainer.classList.add('show');
-            
-            // Add event listeners to buttons
-            document.getElementById('uploadBtn').addEventListener('click', () => {
-              uploadFile(file);
-            });
-            
-            document.getElementById('cancelBtn').addEventListener('click', () => {
-              previewContainer.classList.remove('show');
-              fileInput.value = '';
-            });
-          };
+  previewContainer.innerHTML = `
+    <img src="${e.target.result}" alt="Preview">
+    <div class="preview-actions">
+      <button class="preview-btn primary" id="uploadBtn">Upload</button>
+      <button class="preview-btn secondary" id="cancelBtn">Cancel</button>
+    </div>
+  `;
+  previewContainer.classList.add('show');
+
+  document.getElementById('uploadBtn').addEventListener('click', () => {
+    uploadFile(file);
+  });
+  document.getElementById('cancelBtn').addEventListener('click', () => {
+    previewContainer.classList.remove('show');
+    fileInput.value = '';
+  });
+};
+
           
           reader.readAsDataURL(file);
         } else {

@@ -290,7 +290,7 @@ Ingredients: ${text}
 
 When responding, follow these rules (clear, balanced, user-friendly, detailed):
 
-Rules:
+Rules: Start The response from Ingredients no need of upper texts
 
 1. Only evaluate processed, artificial, or prepared foods (e.g., packaged snacks, beverages, sauces, homemade curries).
 
