@@ -133,6 +133,17 @@
   <script src="js/script.js"></script>
 
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  // Set active nav
+  setActiveNav('dashboard');
+
+  // Initialize Flatpickr AFTER DOM loads
+  flatpickr("#userDOB", {
+    dateFormat: "Y-m-d",
+    maxDate: "today",
+  });
+});
+
     // Initialize Flatpickr with premium dark style
     flatpickr("#userDOB", {
       dateFormat: "Y-m-d",
@@ -142,14 +153,7 @@
     document.addEventListener('DOMContentLoaded', function() {
       setActiveNav('dashboard');
     });
-     const glow = document.getElementById('mouse-glow');
-
-  window.addEventListener('mousemove', (e) => {
-    const x = e.clientX;
-    const y = e.clientY;
-
-    glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(22, 163, 74, 0.25), transparent 80%)`;
-  });
+    
   </script>
 </body>
 </html>
