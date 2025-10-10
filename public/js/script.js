@@ -134,48 +134,43 @@ async function saveDOB() {
     } else alert("❌ Failed to update DOB.");
   } catch (err) { alert("❌ Server error."); }
 }
-
-// ---------- File Upload / OCR ----------
-function initFileUpload() {
-  const dropArea = document.getElementById("dropArea");
-  const fileInput = document.getElementById("fileInput");
-  const previewImage = document.getElementById("previewImage");
-  const previewContainer = document.getElementById("previewContainer");
-
-  if (dropArea && fileInput) {
-    dropArea.addEventListener("click", () => fileInput.click());
-    fileInput.addEventListener("change", () => handleFile(fileInput.files[0]));
-    dropArea.addEventListener("dragover", e => { e.preventDefault(); dropArea.style.background = "rgba(22,163,74,0.1)"; });
-    dropArea.addEventListener("dragleave", () => dropArea.style.background = "rgba(22,163,74,0.03)");
-    dropArea.addEventListener("drop", e => { e.preventDefault(); const file = e.dataTransfer.files[0]; if (file) handleFile(file); });
-  }
-
-  function handleFile(file) {
-    const reader = new FileReader();
-    reader.onload = e => { 
-      if (previewImage) previewImage.src = e.target.result; 
-      if (previewContainer) previewContainer.classList.add("show"); 
-    };
-    reader.readAsDataURL(file);
-  }
-}
+// ---------- OCR Upload ----------
 
 async function uploadImage() {
   const user = getUser();
   const fileInput = document.getElementById("fileInput");
   const file = fileInput.files[0];
-  if (!file) return alert("Please upload an image first!");
+
+  if (!file) {
+    return alert("Please upload an image first!");
+  }
+
   const formData = new FormData();
   formData.append("file", file);
   formData.append("userId", user.userId);
+
   document.getElementById("ocrResult").value = "⏳ Processing...";
+
   try {
-    const res = await fetch("/ocr", { method: "POST", body: formData });
+    const res = await fetch("/ocr", {
+      method: "POST",
+      body: formData
+    });
+
     const data = await res.json();
+
+    // Show OCR result
     document.getElementById("ocrResult").value = data.extracted_text;
+
+    // Reset AI output placeholder
     document.getElementById("aiOutput").textContent = "AI analysis will appear here...";
-  } catch (err) { document.getElementById("ocrResult").value = "❌ OCR failed."; }
+  } catch (err) {
+    console.error(err);
+    document.getElementById("ocrResult").value = "❌ OCR failed.";
+  }
 }
+
+
 
 // ---------- AI Analysis ----------
 async function analyzeText() {
