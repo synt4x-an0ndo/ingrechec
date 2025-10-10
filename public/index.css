@@ -1277,7 +1277,7 @@ background: linear-gradient(180deg, var(--background) 0%, #00eeff60 50%, var(--b
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: -1; /* below all sections */
+  z-index: 0; /* below all sections */
   background: radial-gradient(circle at 50% 50%, rgba(22, 163, 74, 0.15), transparent 80%);
   opacity: 0;
   transition: opacity 0.3s ease, background 0.1s ease;
