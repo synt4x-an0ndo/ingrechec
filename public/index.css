@@ -840,7 +840,7 @@
       background: linear-gradient(135deg, rgba(22, 163, 74, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
       border-radius: 1.5rem;
       isolation: isolate; /* Ensures the glow doesn't blend inside */
-  z-index: 99999;
+  z-index: 2;
       border: 2px solid var(--border);
     }
 
@@ -861,6 +861,8 @@
       border-radius: 0.5rem;
       transition: var(--transition);
       cursor: pointer;
+      isolation: isolate; /* Ensures the glow doesn't blend inside */
+  z-index: 2;
     }
 
     .update-item:hover {
@@ -1271,19 +1273,20 @@ background: linear-gradient(180deg, var(--background) 0%, #00eeff60 50%, var(--b
     .logo {
       height: 50px;
     }
-    #mouse-glow {
-  pointer-events: none;
+   #mouse-glow {
   position: fixed;
   inset: 0;
-  z-index: 1; /* keep under content but above background */
-  mix-blend-mode: screen;
-  background: radial-gradient(circle at center, rgba(22, 163, 74, 0.15), transparent 80%);
-  transition: background 0.2s ease;
+  pointer-events: none;
+  z-index: -1; /* below all sections */
+  background: radial-gradient(circle at 50% 50%, rgba(22, 163, 74, 0.15), transparent 80%);
+  opacity: 0;
+  transition: opacity 0.3s ease, background 0.1s ease;
+   mix-blend-mode: lighten;
+  opacity: 0.4;
 }
-.dark #mouse-glow {
-  mix-blend-mode: lighten;
-  opacity: 0.6;
-}
+
+
+
 
 
   .testimonial-section {
