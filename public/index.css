@@ -1337,6 +1337,7 @@ background: linear-gradient(180deg, var(--background) 0%, #00eeff60 50%, var(--b
 .testimonial-section {
     max-width: 100%;
     margin: auto;
+    
     overflow: hidden;
   }
 
@@ -1345,6 +1346,7 @@ background: linear-gradient(180deg, var(--background) 0%, #00eeff60 50%, var(--b
       align-items: center;
       display: flex;
       width: 100%;
+      
     }
 
     .container {
