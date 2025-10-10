@@ -1,0 +1,12 @@
+[
+  {
+    "userId": 1,
+    "fullName": "a5d2567d5caee85e60bdf3fcf3f2e2ab:f65d18b7da1a2979b0aaee4c21095d23",
+    "emailHash": "c18a2440115d4a010be60493925465abb8c47452f9cd19cb55ee295267d2b12d10ad97325a13fdedb26b2dcd19dd58d3a2c2c58891aee7ad786f64901b79e30d",
+    "passwordHash": "64d09d9930c8ecf79e513167a588cb75439b762ce8f9b22ea59765f32aa74ca19d2f1e97dc922a3d4954594a05062917fb24d1f8e72f2ed02a58ed7534f94d27",
+    "healthIssues": [
+      "ed68844678f05a34e23035f0d1f5a80f:a80bda48615b5ff260eaa84a167f6ee2"
+    ],
+    "dob": null
+  }
+]
