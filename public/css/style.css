@@ -118,7 +118,7 @@ section {
 .btn {
   position: relative;
       display: inline-block;
-      padding: 5px 2rem;
+      padding: 8px 40px;
       font-size: 1rem;
       font-weight: bold;
       color: white;
