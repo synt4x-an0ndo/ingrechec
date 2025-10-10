@@ -12,10 +12,7 @@
       --transition: all 0.3s ease;
       --glass-green: rgba(22, 100, 163, 0.8);
 }
-#mouse-glow {
-  background: radial-gradient(circle at 0 0, rgba(22, 163, 74, 0.2), transparent 80%);
-  transition: background 0.1s ease;
-}
+
 
 .dark {
   --background: #0f0f0f;
