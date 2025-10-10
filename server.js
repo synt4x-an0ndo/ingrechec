@@ -363,7 +363,7 @@ app.get("/sitemap.xml", async (req, res) => {
     const fg = (await import("fast-glob")).default; // dynamic import
     const files = await fg(["./public/*.html"]);
 
-    const BASE_URL = "https://www.ingrechec.com";
+    const BASE_URL = "https://www.ingrechec.online";
 
     const urls = files.map(file => {
       const relativePath = file.replace(/^\.\/public|\\/g, "/");
