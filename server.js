@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import fetch from "node-fetch";
 import fs from "fs";
+import fg from "fast-glob";
 import crypto from "crypto";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -360,7 +361,7 @@ app.get("/sitemap.xml", async (req, res) => {
   try {
     // Scan all HTML pages (root + ingredients folder)
     const fg = (await import("fast-glob")).default; // dynamic import
-    const files = await fg(["./public/*.html", "./public/ingredients/**/*.html"]);
+    const files = await fg(["./public/*.html"]);
 
     const BASE_URL = "https://www.ingrechec.com";
 
