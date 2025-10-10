@@ -8,237 +8,152 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="index.css">
   <style>
-    /* Layout */
-    .steps-grid {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 40px;
-    }
+/* Layout */
+.steps-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
 
-    /* Spotlight Card Styling */
-    .spotlight-card {
-      position: relative;
-      width: 320px;
-      height: 280px;
-      border-radius: 16px;
-      background: var(--background);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      overflow: hidden;
-      transition: all 0.3s ease;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      isolation: isolate; /* Ensures the glow doesn't blend inside */
-      z-index: 2;
-    }
+/* Spotlight Card Styling */
+.spotlight-card {
+  position: relative;
+  width: 320px;
+  height: 280px;
+  border-radius: 16px;
+  background: var( --background);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  isolation: isolate; /* Ensures the glow doesn't blend inside */
+  z-index: 2;
+}
 
-    .spotlight-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(
-        700px circle at var(--mouse-x) var(--mouse-y),
-        rgba(34, 211, 238, 0.08),
-        transparent 50%
-      );
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      isolation: isolate; /* Ensures the glow doesn't blend inside */
-      z-index: 2;
-      pointer-events: none;
-    }
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    700px circle at var(--mouse-x) var(--mouse-y),
+    rgba(34, 211, 238, 0.08),
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  isolation: isolate; /* Ensures the glow doesn't blend inside */
+  z-index: 2;
+  pointer-events: none;
+}
 
-    .spotlight-card:hover::before {
-      opacity: 1;
-    }
+.spotlight-card:hover::before {
+  opacity: 1;
+}
 
-    .spotlight-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-    }
+.spotlight-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
 
-    .card-content {
-      position: relative;
-      z-index: 2;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      text-align: center;
-      isolation: isolate; /* Ensures the glow doesn't blend inside */
-      z-index: 2;
-    }
+.card-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  isolation: isolate; /* Ensures the glow doesn't blend inside */
+  z-index: 2;
+}
 
-    .card-border {
-      position: absolute;
-      inset: 0;
-      border-radius: 16px;
-      background: radial-gradient(
-        600px circle at var(--mouse-x) var(--mouse-y),
-        rgba(34, 211, 238, 0.15),
-        transparent 50%
-      );
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      pointer-events: none;
-      z-index: 3;
-    }
+.card-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    rgba(34, 211, 238, 0.15),
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 3;
+}
 
-    .spotlight-card:hover .card-border {
-      opacity: 1;
-    }
+.spotlight-card:hover .card-border {
+  opacity: 1;
+}
 
-    .card-glow {
-      position: absolute;
-      inset: 0;
-      border-radius: 16px;
-      background: radial-gradient(
-        500px circle at var(--mouse-x) var(--mouse-y),
-        rgba(34, 211, 238, 0.05),
-        transparent 40%
-      );
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      pointer-events: none;
-      z-index: 0;
-    }
+.card-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(
+    500px circle at var(--mouse-x) var(--mouse-y),
+    rgba(34, 211, 238, 0.05),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
 
-    .spotlight-card:hover .card-glow {
-      opacity: 1;
-    }
+.spotlight-card:hover .card-glow {
+  opacity: 1;
+}
 
-    /* Text and icons */
-    .step-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      margin-bottom: 16px;
-    }
+/* Text and icons */
+.step-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-bottom: 16px;
+}
 
-    h3 {
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--foreground);
-      margin-bottom: 8px;
-    }
+h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 8px;
+}
 
-    p {
-      font-size: 0.9rem;
-      color: var(--foreground);
-      padding-left: 20px;
-    }
+p {
+  font-size: 0.9rem;
+  color: var(--foreground);
+  padding-left: 20px;
+}
 
-    /* Testimonial Section Styles */
-    .testimonial-section {
-      padding: 60px 0;
-    }
-
-    .columns {
-      display: flex;
-      gap: 20px;
-      overflow: hidden;
-    }
-
-    .column {
-      flex: 1;
-      position: relative;
-      height: 500px;
-      overflow: hidden;
-    }
-
-    .column.reverse .inner {
-      animation-direction: reverse;
-    }
-
-    .inner {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      animation: scroll 30s linear infinite;
-    }
-
-    @keyframes scroll {
-      0% {
-        transform: translateY(0);
-      }
-      100% {
-        transform: translateY(-50%);
-      }
-    }
-
-    .testimonial-card {
-      background: var(--background);
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .testimonial-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .testimonial-content {
-      flex: 1;
-    }
-
-    .testimonial-name {
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    .testimonial-handle {
-      font-size: 0.8rem;
-      color: var(--foreground);
-      opacity: 0.7;
-      margin-bottom: 8px;
-    }
-
-    .testimonial-review {
-      font-size: 0.9rem;
-      line-height: 1.4;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .spotlight-card {
-        width: 90%;
-        height: auto;
-      }
-      
-      .columns {
-        flex-direction: column;
-        height: auto;
-      }
-      
-      .column {
-        height: auto;
-      }
-      
-      .inner {
-        animation: none;
-      }
-    }
-  </style>
+/* Responsive */
+@media (max-width: 768px) {
+  .spotlight-card {
+    width: 90%;
+    height: auto;
+  }
+}
+</style>
 </head>
 <body>
-  
-  <div id="mouse-glow"></div>
+  <div class="bg-gradient-layer"></div>
+<div id="mouse-glow"></div>
+
 
   <!-- Header -->
   <header class="header" id="header">
+    
     <div class="container">
+
+    
       <nav class="nav">
         <div class="logo" onclick="scrollToTop()">
           <img src="img/logo.png" alt=" Logo" class="logo">
@@ -250,28 +165,28 @@
           <a href="creator.html" class="btn btn-outline">About Creators</a>
           
           <div class="theme-dropdown">
-            <button class="theme-btn" id="theme-btn" onclick="toggleThemeMenu()">
-              <span id="theme-icon"><i class="fas fa-moon"></i></span>
-            </button>
-            <div class="theme-menu" id="theme-menu">
-              <button class="theme-option" onclick="setTheme('system')">
-                <span><i class="fas fa-desktop"></i></span> System
-              </button>
-              <button class="theme-option" onclick="setTheme('light')">
-                <span><i class="fas fa-sun"></i></span> Light
-              </button>
-              <button class="theme-option" onclick="setTheme('dark')">
-                <span><i class="fas fa-moon"></i></span> Dark
-              </button>
-            </div>
-          </div>
+        <button class="theme-btn" id="theme-btn" onclick="toggleThemeMenu()">
+          <span id="theme-icon"><i class="fas fa-moon"></i></span>
+        </button>
+        <div class="theme-menu" id="theme-menu">
+          <button class="theme-option" onclick="setTheme('system')">
+            <span><i class="fas fa-desktop"></i></span> System
+          </button>
+          <button class="theme-option" onclick="setTheme('light')">
+            <span><i class="fas fa-sun"></i></span> Light
+          </button>
+          <button class="theme-option" onclick="setTheme('dark')">
+            <span><i class="fas fa-moon"></i></span> Dark
+          </button>
         </div>
+      </div>
+    </div>
 
         <div class="nav-mobile">
           <div class="theme-dropdown">
             <button class="theme-btn" onclick="toggleMobileThemeMenu()">
-              <span id="theme-icon-mobile"><i class="fas fa-moon"></i></span>
-            </button>
+  <span id="theme-icon-mobile"><i class="fas fa-moon"></i></span>
+</button>
             <div class="theme-menu" id="theme-menu-mobile">
               <button class="theme-option" onclick="setTheme('system')">
                 <span><i class="fas fa-desktop"></i></span> System
@@ -303,9 +218,13 @@
 
   <!-- Hero Section -->
   <section class="hero" id="hero">
+    
     <div class="container">
-      <div class="hero-content">
+      
+      <div  class="hero-content">
+        
         <div class="hero-text">
+          
           <h1>Scan Before You <span class="highlight">Eat</span></h1>
           <p>Upload or scan food product labels to instantly know if they're safe for your health conditions. Stay informed, stay healthy with IngreChec.</p>
           
@@ -331,6 +250,7 @@
         </div>
         
         <div class="hero-image">
+          
           <img src="img/1.png" alt="IngreChec App Interface">
           <div class="floating-element floating-1"></div>
           <div class="floating-element floating-2"></div>
@@ -342,53 +262,53 @@
 
   <!-- Steps Section -->
   <section class="steps" id="steps">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <h2 class="section-title"><i class="fas fa-list-ol"></i> How It Works</h2>
-        <p class="section-subtitle">
-          Three simple steps to identify ingredients and make informed food choices
-        </p>
+  <div class="container">
+    <div class="section-header animate-on-scroll">
+      <h2 class="section-title"><i class="fas fa-list-ol"></i> How It Works</h2>
+      <p class="section-subtitle">
+        Three simple steps to identify ingredients and make informed food choices
+      </p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card spotlight-card animate-on-scroll">
+        <div class="card-glow"></div>
+        <div class="card-border"></div>
+        <div class="card-content">
+          <div class="step-icon" style="background: rgba(59,130,246,0.1); color:#3b82f6;">
+            <i class="fas fa-camera"></i>
+          </div>
+          <h3>Scan Product</h3>
+          <p>Use your phone's camera to scan the barcode or take a picture of the ingredients list.</p>
+        </div>
       </div>
 
-      <div class="steps-grid">
-        <div class="step-card spotlight-card animate-on-scroll">
-          <div class="card-glow"></div>
-          <div class="card-border"></div>
-          <div class="card-content">
-            <div class="step-icon" style="background: rgba(59,130,246,0.1); color:#3b82f6;">
-              <i class="fas fa-camera"></i>
-            </div>
-            <h3>Scan Product</h3>
-            <p>Use your phone's camera to scan the barcode or take a picture of the ingredients list.</p>
+      <div class="step-card spotlight-card animate-on-scroll">
+        <div class="card-glow"></div>
+        <div class="card-border"></div>
+        <div class="card-content">
+          <div class="step-icon" style="background: rgba(147,51,234,0.1); color:#9333ea;">
+            <i class="fas fa-search"></i>
           </div>
+          <h3>Analyze Ingredients</h3>
+          <p>Our AI analyzes the ingredients and identifies potential allergens or dietary concerns.</p>
         </div>
+      </div>
 
-        <div class="step-card spotlight-card animate-on-scroll">
-          <div class="card-glow"></div>
-          <div class="card-border"></div>
-          <div class="card-content">
-            <div class="step-icon" style="background: rgba(147,51,234,0.1); color:#9333ea;">
-              <i class="fas fa-search"></i>
-            </div>
-            <h3>Analyze Ingredients</h3>
-            <p>Our AI analyzes the ingredients and identifies potential allergens or dietary concerns.</p>
+      <div class="step-card spotlight-card animate-on-scroll">
+        <div class="card-glow"></div>
+        <div class="card-border"></div>
+        <div class="card-content">
+          <div class="step-icon" style="background: rgba(22,163,74,0.1); color:#16a34a;">
+            <i class="fas fa-check-circle"></i>
           </div>
-        </div>
-
-        <div class="step-card spotlight-card animate-on-scroll">
-          <div class="card-glow"></div>
-          <div class="card-border"></div>
-          <div class="card-content">
-            <div class="step-icon" style="background: rgba(22,163,74,0.1); color:#16a34a;">
-              <i class="fas fa-check-circle"></i>
-            </div>
-            <h3>Get Results</h3>
-            <p>Receive instant feedback about the product's suitability for your dietary needs.</p>
-          </div>
+          <h3>Get Results</h3>
+          <p>Receive instant feedback about the product's suitability for your dietary needs.</p>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Features Section -->
   <section class="features" id="features">
@@ -445,6 +365,7 @@
           <div class="trust-badges">
             <span class="badge badge-green animate-on-scroll"><i class="fas fa-shield-alt"></i> Privacy First</span>
             <span class="badge badge-blue animate-on-scroll"><i class="fas fa-sync"></i> Regular Updates</span>
+            
           </div>
         </div>
         
@@ -463,16 +384,17 @@
 
   <!-- About Section -->
   <section class="about" id="about">
+    
     <div class="container">
       <div class="about-intro animate-on-scroll">
         <h2 class="section-title"><i class="fas fa-info-circle"></i> About IngreChec</h2>
-        <p>IngreChec helps you make safer food choices by scanning and analyzing ingredients tailored to your health needs.</p>
+                <p>IngreChec helps you make safer food choices by scanning and analyzing ingredients tailored to your health needs.</p>
         <p>With real-time alerts and a simple design, it ensures you know what's safe before you eat. <br>Stay informed, stay healthy—anytime, anywhere.</p>
         <div class="author">- Gm Anondo</div>
       </div>
       
-  <div style="z-index: 2;" class="highlights-grid">
-    
+      
+  <div class="highlights-grid">
     <div class="highlight-card animate-on-scroll">
       <div class="highlight-icon">
         <i class="fas fa-lightbulb"></i>
@@ -497,6 +419,7 @@
       <p>Accuracy, privacy, and user-focused innovation.</p>
     </div>
   </div>
+      
       <div class="future-updates animate-on-scroll">
         <h3 class="section-title"><i class="fas fa-road"></i> Coming Soon</h3>
         <p>We're constantly working to improve IngreChec. Here's what's coming in future updates:</p>
@@ -526,30 +449,34 @@
             </div>
           </div>
           
-          <div class="update-item">
+                   <div class="update-item">
             <div class="update-dot"></div>
             <div class="update-content">
               <h4>Other Plannings</h4>
               <p>• Per-ingredient confidence scores and citations.<br>
-                • Two-factor authentication and password reset flow.<br>
-                • Admin dashboard for analytics and content curation.</p>
+
+• Two-factor authentication and password reset flow.<br>
+
+• Admin dashboard for analytics and content curation.</p>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Testimonials Section -->
-  <section class="testimonials" id="testimonials">
-    <div class="container">
-      <div class="testimonial-section">
-        <h2 style="text-align: center; font-size: 40px; padding-bottom: 20px;">User Reviews</h2>
-        <div class="columns" id="columns"></div>
+    
+ <section>
+  <div class="highlights-grid about" style="padding-top: 50px;">
+    <div class="future-updates animate-on-scroll">
+      <div class="container">
+        <div class="testimonial-section">
+          <h2 style="text-align: center; font-size: 40px; padding-bottom: 20px;">User Reviews</h2>
+          <div class="columns" id="columns">
+          </div>
+        </div>
       </div>
     </div>
-  </section>
-
+  </div>
+ </section>
+</section>
   <!-- CTA Section -->
   <section class="cta" id="cta">
     <div class="container">
@@ -609,6 +536,7 @@
         
         <div class="footer-made-with">
           <span>Your Ingredient Guardian</span>
+          
           <span>– IngreChec</span>
         </div>
         
@@ -623,27 +551,25 @@
       </div>
     </div>
   </footer>
-
-  <script src="https://kit.fontawesome.com/a2e0e9d6d3.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/a2e0e9d6d3.js" crossorigin="anonymous"></script>
   <script>
-    // Initialize spotlight cards
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.spotlight-card').forEach(card => {
-        card.addEventListener('mousemove', e => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          card.style.setProperty('--mouse-x', `${x}px`);
-          card.style.setProperty('--mouse-y', `${y}px`);
-        });
+    const cards = document.querySelectorAll('.highlight-card');
 
-        card.addEventListener('mouseleave', () => {
-          card.style.setProperty('--mouse-x', '50%');
-          card.style.setProperty('--mouse-y', '50%');
-        });
+    cards.forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--x', `${x}px`);
+        card.style.setProperty('--y', `${y}px`);
+      });
+
+      card.addEventListener('mouseleave', () => {
+        // Reset position smoothly
+        card.style.setProperty('--x', `50%`);
+        card.style.setProperty('--y', `50%`);
       });
     });
-
     // Theme functionality
     function setTheme(theme) {
       if (theme === 'dark') {
@@ -760,45 +686,43 @@
         hamburger.classList.remove('active');
       }
     });
+     const glow = document.getElementById('mouse-glow');
 
-    // Background glow effect
-    const glow = document.getElementById('mouse-glow');
+window.addEventListener('mousemove', (e) => {
+  const x = e.clientX;
+  const y = e.clientY;
+  glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(22, 163, 74, 0.25), transparent 80%)`;
 
-    window.addEventListener('mousemove', (e) => {
-      const x = e.clientX;
-      const y = e.clientY;
-      glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(22, 163, 74, 0.25), transparent 80%)`;
-    });
 
-    // Testimonials
-    const testimonials = [
-      { 
-        name: "Araf Rahman", 
-        handle: "@araf_reviews", 
-        review: "IngreChec is super easy to use — clean UI and quick results!", 
-        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100"
-      },
-      { 
-        name: "Mahi Islam", 
-        handle: "@mahi_islm", 
-        review: "User-friendly app! Scanning food labels feels so smooth and fast.", 
-        avatar: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?q=80&w=100"
-      },
-      { 
-        name: "Samiul Hasan", 
-        handle: "@sami_ai", 
-        review: "Valo AI analysis kore! Instantly shows what's good or harmful for me.", 
-        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100"
-      },
-      { 
-        name: "Nusrat Chowdhury", 
-        handle: "@nusratc", 
-        review: "Love the design and accuracy! IngreChec makes healthy choices simple.", 
-        avatar: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=100"
-      },
-    ];
+  });
+  const testimonials = [
+  { 
+    name: "Araf Rahman", 
+    handle: "@araf_reviews", 
+    review: "IngreChec is super easy to use — clean UI and quick results!", 
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100"
+  },
+  { 
+    name: "Mahi Islam", 
+    handle: "@mahi_islm", 
+    review: "User-friendly app! Scanning food labels feels so smooth and fast.", 
+    avatar: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?q=80&w=100"
+  },
+  { 
+    name: "Samiul Hasan", 
+    handle: "@sami_ai", 
+    review: "Valo AI analysis kore! Instantly shows what’s good or harmful for me.", 
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100"
+  },
+  { 
+    name: "Nusrat Chowdhury", 
+    handle: "@nusratc", 
+    review: "Love the design and accuracy! IngreChec makes healthy choices simple.", 
+    avatar: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=100"
+  },
+];
 
-    function createColumn(testimonials, reverse=false) {
+function createColumn(testimonials, reverse=false) {
   const col = document.createElement('div');
   col.className = 'column';
   if(reverse) col.classList.add('reverse');
@@ -809,30 +733,30 @@
   // duplicate testimonials for seamless scroll
   const items = [...testimonials, ...testimonials];
 
-      items.forEach(t => {
-        const card = document.createElement('div');
-        card.className = 'testimonial-card';
-        card.innerHTML = `
-          <img class="testimonial-avatar" src="${t.avatar}">
-          <div class="testimonial-content">
-            <div class="testimonial-name">${t.name}</div>
-            <div class="testimonial-handle">${t.handle}</div>
-            <div class="testimonial-review">"${t.review}"</div>
-          </div>
-        `;
-        inner.appendChild(card);
-      });
+  items.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'testimonial-card';
+    card.innerHTML = `
+      <img class="testimonial-avatar" src="${t.avatar}">
+      <div class="testimonial-content">
+        <div class="testimonial-name">${t.name}</div>
+        <div class="testimonial-handle">${t.handle}</div>
+        <div class="testimonial-review">"${t.review}"</div>
+      </div>
+    `;
+    inner.appendChild(card);
+  });
 
-      col.appendChild(inner);
-      return col;
-    }
+  col.appendChild(inner);
+  return col;
+}
 
-    // create 3 columns
-    const columnsContainer = document.getElementById('columns');
-    columnsContainer.appendChild(createColumn(testimonials));
-    columnsContainer.appendChild(createColumn(testimonials, true));
-    columnsContainer.appendChild(createColumn(testimonials));
-    document.addEventListener('DOMContentLoaded', () => {
+// create 3 columns
+const columnsContainer = document.getElementById('columns');
+columnsContainer.appendChild(createColumn(testimonials));
+columnsContainer.appendChild(createColumn(testimonials, true));
+columnsContainer.appendChild(createColumn(testimonials));
+document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.spotlight-card').forEach(card => {
     card.addEventListener('mousemove', e => {
       const rect = card.getBoundingClientRect();
@@ -848,23 +772,6 @@
     });
   });
 });
-const cards = document.querySelectorAll('.highlight-card');
-
-    cards.forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        card.style.setProperty('--x', `${x}px`);
-        card.style.setProperty('--y', `${y}px`);
-      });
-
-      card.addEventListener('mouseleave', () => {
-        // Reset position smoothly
-        card.style.setProperty('--x', `50%`);
-        card.style.setProperty('--y', `50%`);
-      });
-    });
   </script>
 </body>
 </html>
