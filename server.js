@@ -355,6 +355,38 @@ Rules: Start The response from Ingredients no need of upper texts
   }
 });
 
+// ---------- Dynamic Sitemap ----------
+app.get("/sitemap.xml", async (req, res) => {
+  try {
+    // Scan all HTML pages (root + ingredients folder)
+    const fg = (await import("fast-glob")).default; // dynamic import
+    const files = await fg(["./public/*.html", "./public/ingredients/**/*.html"]);
+
+    const BASE_URL = "https://www.ingrechec.com";
+
+    const urls = files.map(file => {
+      const relativePath = file.replace(/^\.\/public|\\/g, "/");
+      return `
+  <url>
+    <loc>${BASE_URL}${relativePath.startsWith("/") ? "" : "/"}${relativePath}</loc>
+    <priority>${relativePath === "/index.html" ? "1.0" : "0.8"}</priority>
+    <changefreq>${relativePath === "/index.html" ? "daily" : "weekly"}</changefreq>
+  </url>`;
+    }).join("");
+
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>`;
+
+    res.header("Content-Type", "application/xml");
+    res.send(sitemap);
+  } catch (err) {
+    console.error("Error generating sitemap:", err);
+    res.status(500).send("Sitemap generation failed");
+  }
+});
+
 // ---------- Default Route ----------
 app.get("/", (req, res) => {
   const indexPath = path.join(__dirname, "public", "index.html");
