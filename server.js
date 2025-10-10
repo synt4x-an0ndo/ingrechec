@@ -323,7 +323,7 @@ Rules:
 
 6. Only color the points name.
 `;
-const cleanedResponse = aiResponse.replace(/^Okay, I understand[\s\S]*?(?=Here's|Analysis)/i, "");
+
     const aiResponse = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
       {
@@ -332,7 +332,7 @@ const cleanedResponse = aiResponse.replace(/^Okay, I understand[\s\S]*?(?=Here's
         body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
       }
     );
-
+const cleanedResponse = aiResponse.replace(/^Okay, I understand[\s\S]*?(?=Here's|Analysis)/i, "");
     const aiData = await aiResponse.json();
     const analysis =
       aiData?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
