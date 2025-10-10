@@ -23,14 +23,20 @@
     }
 
     .flatpickr-day.selected {
-      background: linear-gradient(135deg,#ff4081,#ff79b0);
+      background: linear-gradient(135deg,var(--primary),var(--primary-hover));
       color: #fff;
       border-radius: 50%;
-      box-shadow: 0 0 10px #ff4081;
+      box-shadow: 0 0 10px var( --glass-green);
+    }
+    .flatpickr-day.selected:hover {
+      background: linear-gradient(135deg,var(--card),var(--card));
+      color: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 10px var( --glass-green);
     }
 
     .flatpickr-day:hover {
-      background: rgba(255,64,129,0.2);
+      background: var(--card);
       cursor: pointer;
     }
 
@@ -50,6 +56,7 @@
     #mouse-glow {
   background: radial-gradient(circle at 0 0, rgba(22, 163, 74, 0.2), transparent 80%);
   transition: background 0.1s ease;
+  z-index: 0;
 }
   </style>
 </head>
@@ -97,8 +104,8 @@
     <div class="header-right" id="welcomeName">Welcome!</div>
   </section>
 
-  <main>
-    <div class="user-card">
+  <main style="z-index: 999;">
+    <div style="z-index: 2;" class="user-card">
       <h2 class="section-title"><i class="fas fa-user"></i> Your Information</h2>
       <p><strong>Name:</strong> <span id="userName">Loading...</span></p>
       <p><strong>Email:</strong> <span id="userEmail">Loading...</span></p>

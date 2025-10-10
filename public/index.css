@@ -50,6 +50,8 @@
       margin: 0 auto;
       padding: 5px;
       padding: 0 16px;
+      isolation: isolate; /* Ensures the glow doesn't blend inside */
+  z-index: 2;
     }
 
     /* Header Styles */
@@ -506,6 +508,8 @@
       gap: 2rem;
       max-width: 1000px;
       margin: 0 auto;
+      isolation: isolate; /* Ensures the glow doesn't blend inside */
+  z-index: 2;
     }
 
     .step-card {
@@ -517,6 +521,8 @@
       transition: var(--transition);
       position: relative;
       overflow: hidden;
+      isolation: isolate; /* Ensures the glow doesn't blend inside */
+  z-index: 2;
     }
 
     .step-card:hover {
@@ -833,7 +839,8 @@
     .future-updates {
       background: linear-gradient(135deg, rgba(22, 163, 74, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
       border-radius: 1.5rem;
-      
+      isolation: isolate; /* Ensures the glow doesn't blend inside */
+  z-index: 99999;
       border: 2px solid var(--border);
     }
 
@@ -842,6 +849,8 @@
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1rem;
       margin-bottom: 2rem;
+      isolation: isolate; /* Ensures the glow doesn't blend inside */
+  z-index: 2;
     }
 
     .update-item {

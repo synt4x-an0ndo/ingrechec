@@ -227,6 +227,8 @@
       min-height: calc(100vh - 160px); 
       padding: 40px 20px; 
       animation: fadeIn 0.8s ease;
+      isolation: isolate; /* Ensures the glow doesn't blend inside */
+  z-index: 2;
     }
     
     .login-box { 

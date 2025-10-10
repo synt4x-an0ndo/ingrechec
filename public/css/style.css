@@ -298,6 +298,8 @@ main {
   margin-bottom: 30px;
   transition: var(--transition);
   border: 1px solid var(--border);
+  isolation: isolate; /* Ensures the glow doesn't blend inside */
+  z-index: 2;
 }
 
 .user-card:hover, .ocr-section:hover, .history-section:hover, .features:hover {
