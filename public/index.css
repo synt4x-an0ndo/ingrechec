@@ -40,6 +40,7 @@
   position: relative;
       color: var(--foreground);
       scroll-behavior: smooth;
+      z-index: 0;
     }
     /* background gradient layers */
 
@@ -1172,11 +1173,13 @@ background: linear-gradient(180deg, var(--background) 0%, #00eeff60 50%, var(--b
       opacity: 0;
       transform: translateY(30px);
       transition: all 0.8s ease-out;
+      z-index: 2;
     }
 
     .animate-on-scroll.animate-in {
       opacity: 1;
       transform: translateY(0);
+      z-index: 2;
     }
 
     /* Responsive Design */
