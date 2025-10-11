@@ -106,7 +106,7 @@
 
     .nav-mobile {
       display: none;
-   
+   position: relative;
       gap: 0.5rem;
     }
 
@@ -280,8 +280,9 @@
     }
 
     .mobile-menu {
-      position: absolute;
+      position:absolute;
       top: 100%;
+      left: 60%;
       align-items: center;
       background: var(--card);
       border: 1px solid var(--border);
