@@ -282,7 +282,7 @@
     .mobile-menu {
       position:absolute;
       top: 100%;
-      left: 60%;
+      left: 48%;
       align-items: center;
       background: var(--card);
       border: 1px solid var(--border);
@@ -733,15 +733,17 @@
     .image-overlay-2 {
       position: absolute;
       bottom: -1rem;
-      right: -1rem;
+      right: 10%;
       background: #3b82f6;
       color: white;
       padding: 0.75rem 1rem;
+      padding-right: 10px;
       border-radius: 2rem;
       font-size: 0.875rem;
       font-weight: 600;
       animation: bounce 2s infinite;
       animation-delay: 1s;
+      
     }
 
     /* About Section */
