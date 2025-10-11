@@ -7,7 +7,7 @@
   <title>Register - IngreChec</title>
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   <link rel="stylesheet" href="index.css">
+   
   <style>
     :root {
     --primary: #166ba3;
@@ -96,60 +96,87 @@
       gap: 12px; 
     }
     
-    /* Updated Button Styles */
     .btn {
-      text-decoration: none;
-      color: #fff;
-      background-color: var(--primary);
-       padding: 8px 3rem;
-      display: inline-block;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 16px;
       position: relative;
-      overflow: hidden;
-      transition: all 0.4s ease;
-      box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      background: linear-gradient(135deg, var(--glass-green) 0%, var(--primary) 100%);
-      backdrop-filter: blur(5px);
+      display: inline-block;
+      padding: 0px 3rem;
+      font-size: 1rem;
+      font-weight: bold;
+      color: white;
+      background-color: rgba(0, 0, 0, 1);
+      border: 2px solid rgba(22, 111, 163, 0.8);
+      border-radius: 100px;
+        text-decoration: none;
       cursor: pointer;
-      text-align: center;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex; 
     }
 
-    .btn::before {
-      content: '';
+     .btn::before {
+     content: '';
       position: absolute;
       top: 0;
-      left: -100%;
-      width: 100%;
+      left: -75%;
+      width: 50%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-      transition: 0.5s;
+      background: linear-gradient(
+        120deg,
+        rgba(57, 255, 20, 0) 0%,
+        rgba(63, 146, 201, 0.8) 50%,
+        rgba(57, 255, 20, 0) 100%
+      );
+      transform: skewX(-25deg);
+      animation: shimmer 5s infinite;
     }
 
+    @keyframes shimmer {
+      0% { left: -75%; }
+      100% { left: 125%; }
+    }
+    
+
     .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(22, 163, 74, 0.4);
-      text-decoration: none;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+      box-shadow: 0 0 2px #14c8ff, 0 0 4px #14b5ff, 0 0 8px #1466ff;
     }
 
     .btn:hover::before {
       left: 100%;
     }
 
+    
+    
     .btn.login {
       background: transparent;
       color: var(--primary);
       border: 2px solid var(--primary);
+      align-items: center;
+      text-align: center;
     }
     
     .btn.login:hover { 
-      background: var(--primary);
-      color: white;
+     box-shadow: 0 0 2px #14c8ff, 0 0 4px #14b5ff, 0 0 8px #1466ff;
     }
-    
+    .register-btn::before {
+     content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        rgba(57, 255, 20, 0) 0%,
+        rgba(63, 146, 201, 0.8) 50%,
+        rgba(57, 255, 20, 0) 100%
+      );
+      transform: skewX(-25deg);
+      animation: shimmer 5s infinite;
+    }
+    @keyframes shimmer {
+      0% { left: -75%; }
+      100% { left: 125%; }
+    }
     .btn.register {
       background: linear-gradient(135deg, var(--primary-hover) 0%, var(--primary) 100%);
       color: #ffffff;

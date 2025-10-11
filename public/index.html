@@ -1,6 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+   <!-- Add this RIGHT AFTER the opening head tag -->
+  <style id="initial-theme">
+    /* Immediately apply dark theme if it was previously selected */
+    .dark-initial {
+      --background: #0f0f0f;
+      --foreground: #f9fafb;
+      --muted: #0f0f0f;
+      --muted-foreground: #9ca3af;
+      --border: #374151;
+      --card: #1f2937;
+      --card-foreground: #f9fafb;
+      --glass-green: rgba(22, 111, 163, 0.6);
+    }
+    
+    /* Hide content until theme is properly set */
+    body {
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    body.theme-loaded {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+  
+  <script>
+    // IMMEDIATELY check theme before any rendering happens
+    (() => {
+      const savedTheme = localStorage.getItem('theme');
+      const isDark = savedTheme === 'dark' || 
+                    (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      
+      if (isDark) {
+        document.documentElement.classList.add('dark-initial');
+      }
+      
+      // Mark theme as loaded once DOM is ready
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('theme-loaded');
+        
+        // Remove the initial class and apply proper theme
+        if (isDark) {
+          document.documentElement.classList.remove('dark-initial');
+          document.documentElement.classList.add('dark');
+        }
+      });
+    })();
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -47,139 +98,7 @@
   <!-- Preconnect for faster font/icon load -->
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 <style>
-/* Layout */
-.steps-grid {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-top: 40px;
-}
 
-/* Spotlight Card Styling */
-.spotlight-card {
-  position: relative;
-  width: 320px;
-  height: 280px;
-  border-radius: 16px;
-  background: var( --background);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  overflow: hidden;
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  isolation: isolate; /* Ensures the glow doesn't blend inside */
-  z-index: 2;
-}
-
-.spotlight-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    700px circle at var(--mouse-x) var(--mouse-y),
-    rgba(34, 211, 238, 0.08),
-    transparent 50%
-  );
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  isolation: isolate; /* Ensures the glow doesn't blend inside */
-  z-index: 2;
-  pointer-events: none;
-}
-
-.spotlight-card:hover::before {
-  opacity: 1;
-}
-
-.spotlight-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-}
-
-.card-content {
-  position: relative;
-  z-index: 2;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  text-align: center;
-  isolation: isolate; /* Ensures the glow doesn't blend inside */
-  z-index: 2;
-}
-
-.card-border {
-  position: absolute;
-  inset: 0;
-  border-radius: 16px;
-  background: radial-gradient(
-    600px circle at var(--mouse-x) var(--mouse-y),
-    rgba(34, 211, 238, 0.15),
-    transparent 50%
-  );
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-  z-index: 3;
-}
-
-.spotlight-card:hover .card-border {
-  opacity: 1;
-}
-
-.card-glow {
-  position: absolute;
-  inset: 0;
-  border-radius: 16px;
-  background: radial-gradient(
-    500px circle at var(--mouse-x) var(--mouse-y),
-    rgba(34, 211, 238, 0.05),
-    transparent 40%
-  );
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.spotlight-card:hover .card-glow {
-  opacity: 1;
-}
-
-/* Text and icons */
-.step-icon {
-  width: 64px;
-  height: 64px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  margin-bottom: 16px;
-}
-
-h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--foreground);
-  margin-bottom: 8px;
-}
-
-p {
-  font-size: 0.9rem;
-  color: var(--foreground);
-  padding-left: 20px;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .spotlight-card {
-    width: 90%;
-    height: auto;
-  }
-}
 </style>
 </head>
 <body>
@@ -592,23 +511,6 @@ p {
   </footer>
 <script src="https://kit.fontawesome.com/a2e0e9d6d3.js" crossorigin="anonymous"></script>
   <script>
-    const cards = document.querySelectorAll('.highlight-card');
-
-    cards.forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        card.style.setProperty('--x', `${x}px`);
-        card.style.setProperty('--y', `${y}px`);
-      });
-
-      card.addEventListener('mouseleave', () => {
-        // Reset position smoothly
-        card.style.setProperty('--x', `50%`);
-        card.style.setProperty('--y', `50%`);
-      });
-    });
     // Theme functionality
     function setTheme(theme) {
       if (theme === 'dark') {
@@ -672,6 +574,24 @@ p {
       document.getElementById('mobile-menu').classList.toggle('show');
     }
 
+    const cards = document.querySelectorAll('.highlight-card');
+
+    cards.forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--x', `${x}px`);
+        card.style.setProperty('--y', `${y}px`);
+      });
+
+      card.addEventListener('mouseleave', () => {
+        // Reset position smoothly
+        card.style.setProperty('--x', `50%`);
+        card.style.setProperty('--y', `50%`);
+      });
+    });
+    
     // Scroll animations
     function checkScroll() {
       const elements = document.querySelectorAll('.animate-on-scroll');
@@ -805,10 +725,6 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.setProperty('--mouse-y', `${y}px`);
     });
 
-    card.addEventListener('mouseleave', () => {
-      card.style.setProperty('--mouse-x', '50%');
-      card.style.setProperty('--mouse-y', '50%');
-    });
   });
 });
   </script>

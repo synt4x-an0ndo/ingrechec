@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="img/logo2.png" type="image/png" />
   <title>Login - IngreChec</title>
-<link rel="stylesheet" href="index.css">
+
   <!-- ✅ Font Awesome for professional icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
  
@@ -115,21 +115,29 @@
     }
 
     .btn::before {
-      content: '';
+     content: '';
       position: absolute;
       top: 0;
-      left: -100%;
-      width: 100%;
+      left: -75%;
+      width: 50%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-      transition: 0.5s;
+      background: linear-gradient(
+        120deg,
+        rgba(57, 255, 20, 0) 0%,
+        rgba(63, 146, 201, 0.8) 50%,
+        rgba(57, 255, 20, 0) 100%
+      );
+      transform: skewX(-25deg);
+      animation: shimmer 5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { left: -75%; }
+      100% { left: 125%; }
     }
 
     .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(22, 163, 74, 0.4);
-      text-decoration: none;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+      box-shadow: 0 0 2px #14c8ff, 0 0 4px #14b5ff, 0 0 8px #1466ff;
     }
 
     .btn:hover::before {
