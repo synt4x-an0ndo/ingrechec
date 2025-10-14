@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,15 @@
   <title>Dashboard | IngreChec</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mouse-glow.css">
 
   <!-- Flatpickr Base CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <!-- Auto Theme CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/light.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css"
+    media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/light.css"
+    media="(prefers-color-scheme: light)">
 
   <style>
     /* Premium dark-stylish overrides for Flatpickr */
@@ -23,16 +27,17 @@
     }
 
     .flatpickr-day.selected {
-      background: linear-gradient(135deg,var(--primary),var(--primary-hover));
+      background: linear-gradient(135deg, var(--primary), var(--primary-hover));
       color: #fff;
       border-radius: 50%;
-      box-shadow: 0 0 10px var( --glass-green);
+      box-shadow: 0 0 10px var(--glass-green);
     }
+
     .flatpickr-day.selected:hover {
-      background: linear-gradient(135deg,var(--card),var(--card));
+      background: linear-gradient(135deg, var(--card), var(--card));
       color: #fff;
       border-radius: 50%;
-      box-shadow: 0 0 10px var( --glass-green);
+      box-shadow: 0 0 10px var(--glass-green);
     }
 
     .flatpickr-day:hover {
@@ -50,19 +55,21 @@
       font-weight: 700;
     }
 
-    .flatpickr-prev-month, .flatpickr-next-month {
+    .flatpickr-prev-month,
+    .flatpickr-next-month {
       color: #fff;
     }
+
     #mouse-glow {
-  background: radial-gradient(circle at 0 0, rgba(22, 163, 74, 0.2), transparent 80%);
-  transition: background 0.1s ease;
-  z-index: -1;
-}
+      background: radial-gradient(circle at 0 0, rgba(22, 163, 74, 0.2), transparent 80%);
+      transition: background 0.1s ease;
+      z-index: -1;
+    }
   </style>
 </head>
 
 <body>
-  
+
 
   <header>
     <div class="logo" onclick="navigateTo('dashboard.html')">
@@ -140,16 +147,16 @@
   <script src="js/script.js"></script>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-  // Set active nav
-  setActiveNav('dashboard');
+    document.addEventListener('DOMContentLoaded', function () {
+      // Set active nav
+      setActiveNav('dashboard');
 
-  // Initialize Flatpickr AFTER DOM loads
-  flatpickr("#userDOB", {
-    dateFormat: "Y-m-d",
-    maxDate: "today",
-  });
-});
+      // Initialize Flatpickr AFTER DOM loads
+      flatpickr("#userDOB", {
+        dateFormat: "Y-m-d",
+        maxDate: "today",
+      });
+    });
 
     // Initialize Flatpickr with premium dark style
     flatpickr("#userDOB", {
@@ -157,10 +164,11 @@
       maxDate: "today",
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       setActiveNav('dashboard');
     });
-    
   </script>
+  <script src="js/mouse-glow.js"></script>
 </body>
+
 </html>

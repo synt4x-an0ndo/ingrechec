@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,30 +8,33 @@
   <title>Ingre Scan | IngreChec</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mouse-glow.css">
   <style>
-  .image-preview {
-  display: none;
-  margin-top: 20px;
-}
-.image-preview.show {
-  display: block;
-}
-.image-preview img {
-  max-width: 100%;
-  border-radius: 8px;
-}
-.preview-actions {
-  margin-top: 10px;
-  display: flex;
-  gap: 10px;
-}
+    .image-preview {
+      display: none;
+      margin-top: 20px;
+    }
 
+    .image-preview.show {
+      display: block;
+    }
 
+    .image-preview img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    .preview-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
   </style>
 
 </head>
+
 <body>
-  
+
 
   <header>
     <div class="logo" onclick="navigateTo('dashboard.html')">
@@ -75,7 +79,7 @@
   <main>
     <div class="ocr-section">
       <h2 class="section-title"><i class="fas fa-camera"></i> Scan Ingredients</h2>
-      
+
       <!-- Updated Upload Area -->
       <div id="dropArea" class="upload-area">
         <div class="particles" id="particles"></div>
@@ -86,7 +90,7 @@
         </div>
         <button class="browse-button">Browse Files</button>
         <input type="file" id="fileInput" hidden accept="image/*">
-        
+
         <div class="supported-formats">
           <span class="format-tag">PNG</span>
           <span class="format-tag">JPG</span>
@@ -122,16 +126,17 @@ Or Just Type Here."></textarea>
       <div class="ai-output" id="aiOutput">AI analysis will appear here...</div>
     </div>
     <div class="note">
-      <p><i class="fas fa-info-circle"></i> Transparency Note: Our AI provides data-driven suggestions. For definitive food safety and nutritional advice, we recommend consulting certified professionals.</p>
+      <p><i class="fas fa-info-circle"></i> Transparency Note: Our AI provides data-driven suggestions. For definitive
+        food safety and nutritional advice, we recommend consulting certified professionals.</p>
     </div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="js/script.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       setActiveNav('scan');
-      
+
       // Initialize upload area functionality
       initUploadArea();
     });
@@ -146,7 +151,7 @@ Or Just Type Here."></textarea>
       const uploadSuccess = document.getElementById('uploadSuccess');
       const particlesContainer = document.getElementById('particles');
       const browseButton = dropArea.querySelector('.browse-button');
-      
+
       // Create floating particles
       function createParticles() {
         for (let i = 0; i < 15; i++) {
@@ -159,81 +164,81 @@ Or Just Type Here."></textarea>
           particlesContainer.appendChild(particle);
         }
       }
-      
+
       createParticles();
-      
+
       // Upload area interactions
       dropArea.addEventListener('click', () => {
         fileInput.click();
       });
-      
+
       browseButton.addEventListener('click', (e) => {
         e.stopPropagation();
         fileInput.click();
       });
-      
+
       dropArea.addEventListener('dragover', (e) => {
         e.preventDefault();
         dropArea.classList.add('active');
       });
-      
+
       dropArea.addEventListener('dragleave', () => {
         dropArea.classList.remove('active');
       });
-      
+
       dropArea.addEventListener('drop', (e) => {
         e.preventDefault();
         dropArea.classList.remove('active');
-        
+
         if (e.dataTransfer.files.length) {
           handleFile(e.dataTransfer.files[0]);
         }
       });
-      
+
       fileInput.addEventListener('change', (e) => {
         if (e.target.files.length) {
           handleFile(e.target.files[0]);
         }
       });
-      
+
       // File handling
       function handleFile(file) {
         // Reset previous state
         previewContainer.classList.remove('show');
         uploadSuccess.style.display = 'none';
-        
+
         // Check file size (10MB limit)
         if (file.size > 10 * 1024 * 1024) {
           alert('File size exceeds 10MB limit. Please choose a smaller file.');
           return;
         }
-        
+
         // Show file info
         const fileType = file.type.split('/')[0];
-        
+
         if (fileType === 'image') {
           const reader = new FileReader();
-          
-          reader.onload = function(e) {
-  previewContainer.innerHTML = `
+
+          reader.onload = function (e) {
+            previewContainer.innerHTML = `
     <img src="${e.target.result}" alt="Preview">
     <div class="preview-actions">
       <button class="preview-btn primary" id="uploadBtn">Upload</button>
       <button class="preview-btn secondary" id="cancelBtn">Cancel</button>
     </div>
   `;
-  previewContainer.classList.add('show');
+            previewContainer.classList.add('show');
 
-  document.getElementById('uploadBtn').addEventListener('click', () => {
-    uploadFile(file);
-  });
-  document.getElementById('cancelBtn').addEventListener('click', () => {
-    previewContainer.classList.remove('show');
-    fileInput.value = '';
-  });
-};
+            document.getElementById('uploadBtn').addEventListener('click', () => {
+              uploadFile(file);
+            });
+            document.getElementById('cancelBtn').addEventListener('click', () => {
+              previewContainer.classList.remove('show');
+              fileInput.value = '';
+            });
+          };
 
-          
+
           reader.readAsDataURL(file);
         } else {
           // For non-image files
@@ -241,37 +246,38 @@ Or Just Type Here."></textarea>
           fileInput.value = '';
         }
       }
-      
+
       // Simulate file upload
       function uploadFile(file) {
         uploadProgress.style.display = 'block';
         previewContainer.classList.remove('show');
-        
+
         let progress = 0;
         const interval = setInterval(() => {
           progress += Math.random() * 10;
           if (progress >= 100) {
             progress = 100;
             clearInterval(interval);
-            
+
             // Show success message after a short delay
             setTimeout(() => {
               uploadProgress.style.display = 'none';
               uploadSuccess.style.display = 'block';
-              
+
               // Auto-hide success message after 3 seconds
               setTimeout(() => {
                 uploadSuccess.style.display = 'none';
               }, 3000);
             }, 500);
           }
-          
+
           progressFill.style.width = `${progress}%`;
           progressText.textContent = `Uploading... ${Math.round(progress)}%`;
         }, 200);
       }
     }
-     
   </script>
+  <script src="js/mouse-glow.js"></script>
 </body>
+
 </html>
