@@ -474,6 +474,7 @@ textarea:focus {
 .history-list { 
   list-style: none; 
   padding: 0; 
+  cursor: pointer;
 }
 
 .history-item {
