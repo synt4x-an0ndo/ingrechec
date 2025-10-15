@@ -1727,13 +1727,13 @@
   }
   
 }
-/* 🎯 Fix underline length for "Eat" */
+
 @media (max-width: 768px) {
   .hero-text .highlight::after {
-    width: 50%;              /* reduce underline length */
-    left: 25%;               /* center it under the word */
-    height: 6px;             /* slightly thinner for balance */
-    background: rgba(22, 163, 74, 0.3); /* keep the glow subtle */
+    width: 50%;              
+    left: 25%;               
+    height: 6px;  
+    background: rgba(22, 163, 74, 0.3); 
     opacity: 0;
   }
 }
