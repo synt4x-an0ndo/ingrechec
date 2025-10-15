@@ -1284,6 +1284,7 @@
    .hero-content {
      grid-template-columns: 1fr;
      text-align: center;
+     
    }
 
    .hero-text h1 {
@@ -1630,3 +1631,109 @@
      height: auto;
    }
  }
+ /* 🔧 Fix Hero Overflow on Mobile */
+@media (max-width: 768px) {
+  .hero {
+    padding: 3rem 1rem;
+    text-align: center;
+    overflow-x: hidden;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    justify-items: center;
+  }
+
+  .hero-text {
+    max-width: 100%;
+  }
+
+  .hero-text h1 {
+    font-size: 2.2rem;
+    line-height: 1.2;
+    word-break: break-word;
+  }
+
+  .hero-text p {
+    font-size: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .hero-buttons .btn {
+    
+    justify-content: center;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding-top: 1.5rem;
+  }
+
+  .hero-image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-image img {
+    width: 90%;
+    max-width: 350px;
+    height: auto;
+  }
+
+  .floating-element {
+    display: none; /* prevent unwanted overflow */
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-text h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-text p {
+    font-size: 0.9rem;
+  }
+
+  .hero-buttons .btn {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .stat-number {
+    font-size: 1.6rem;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+  }
+ 
+}
+
+
+@media (max-width: 768px) {
+  .hero-text h1 .highlight {
+    display:block;      /* moves "Eat" to its own line */
+    margin-top: 0.5rem;  /* small spacing for balance */
+  }
+  
+}
+/* 🎯 Fix underline length for "Eat" */
+@media (max-width: 768px) {
+  .hero-text .highlight::after {
+    width: 50%;              /* reduce underline length */
+    left: 25%;               /* center it under the word */
+    height: 6px;             /* slightly thinner for balance */
+    background: rgba(22, 163, 74, 0.3); /* keep the glow subtle */
+    opacity: 0;
+  }
+}
