@@ -751,6 +751,42 @@
 
   </script>
   <script src="js/mouse-glow.js"></script>
+ <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const user = localStorage.getItem("user"); // your login key
+
+  if (user) {
+    // Desktop menu replacements
+    const desktopNav = document.querySelector(".nav-desktop");
+    const desktopGetStarted = desktopNav?.querySelector('a[href="register.html"]');
+    const desktopLogin = desktopNav?.querySelector('a[href="signin.html"]');
+
+    // Mobile menu replacements
+    const mobileMenu = document.querySelector("#mobile-menu");
+    const mobileGetStarted = mobileMenu?.querySelector('a[href="register.html"]');
+    const mobileLogin = mobileMenu?.querySelector('a[href="signin.html"]');
+
+    // Remove old buttons
+    desktopGetStarted?.remove();
+    desktopLogin?.remove();
+    mobileGetStarted?.remove();
+    mobileLogin?.remove();
+
+    // Create new Dashboard button (same look as Get Started)
+    const dashboardBtnDesktop = document.createElement("a");
+    dashboardBtnDesktop.href = "dashboard.html"; // your dashboard link
+    dashboardBtnDesktop.className = "btn btn-primary";
+    dashboardBtnDesktop.textContent = "Dashboard";
+
+    const dashboardBtnMobile = dashboardBtnDesktop.cloneNode(true);
+
+    // Add new buttons in their places
+    if (desktopNav) desktopNav.prepend(dashboardBtnDesktop);
+    if (mobileMenu) mobileMenu.prepend(dashboardBtnMobile);
+  }
+});
+</script>
+
 </body>
 
 </html>
