@@ -65,6 +65,298 @@
       transition: background 0.1s ease;
       z-index: -1;
     }
+
+    /* Dashboard Redesign Styles */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .dashboard-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: var(--transition);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dashboard-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+    }
+
+    .dashboard-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .card-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.3rem;
+      box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3);
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--foreground);
+      margin: 0;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: var(--muted-foreground);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-label i {
+      color: var(--primary);
+    }
+
+    .info-value {
+      font-weight: 600;
+      color: var(--foreground);
+      text-align: right;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .input-group input {
+      flex: 1;
+      padding: 10px 15px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--muted);
+      color: var(--foreground);
+      transition: var(--transition);
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+    }
+
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .stat-box {
+      background: var(--muted);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: var(--transition);
+      border: 1px solid var(--border);
+    }
+
+    .stat-box:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-icon {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--foreground);
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .feature-item {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      transition: var(--transition);
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .feature-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      border-color: var(--primary);
+    }
+
+    .feature-icon-box {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(22, 163, 74, 0.1), rgba(22, 163, 74, 0.05));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .feature-content h4 {
+      margin: 0 0 8px 0;
+      font-size: 1.1rem;
+      color: var(--foreground);
+    }
+
+    .feature-content p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--muted-foreground);
+      line-height: 1.5;
+    }
+
+    .full-width-card {
+      grid-column: 1 / -1;
+    }
+
+    .age-display {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+      color: white;
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: var(--muted);
+      color: var(--muted-foreground);
+    }
+
+    .badge.success {
+      background: rgba(22, 163, 74, 0.1);
+      color: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .dashboard-card:nth-child(odd) {
+      animation: slideInLeft 0.6s ease-out;
+    }
+
+    .dashboard-card:nth-child(even) {
+      animation: slideInRight 0.6s ease-out;
+    }
+
+    .feature-item {
+      animation: slideInLeft 0.6s ease-out backwards;
+    }
+
+    .feature-item:nth-child(1) { animation-delay: 0.1s; }
+    .feature-item:nth-child(2) { animation-delay: 0.2s; }
+    .feature-item:nth-child(3) { animation-delay: 0.3s; }
+    .feature-item:nth-child(4) { animation-delay: 0.4s; }
   </style>
 </head>
 
@@ -112,33 +404,134 @@
   </section>
 
   <main style="z-index: 999;">
-    <div style="z-index: 2;" class="user-card">
-      <h2 class="section-title"><i class="fas fa-user"></i> Your Information</h2>
-      <p><strong>Name:</strong> <span id="userName">Loading...</span></p>
-      <p><strong>Email:</strong> <span id="userEmail">Loading...</span></p>
-      <p><strong>User ID:</strong> <span id="userId">Loading...</span></p>
-      <p>
-        <strong>Health Issues:</strong>
-        <input type="text" id="userIssuesInput" placeholder="e.g. diabetes, hypertension">
-        <button class="btn analyze" onclick="saveHealthIssues()">Save</button>
-      </p>
-      <p>
-        <strong>Date of Birth:</strong>
-        <input type="text" id="userDOB" onchange="calculateAge()" placeholder="YYYY-MM-DD">
-        <button class="btn analyze" onclick="saveDOB()">Save/Update DOB</button>
-      </p>
-      <div class="age">
-        <span id="calculatedAge">Age: N/A</span>
+    <div class="dashboard-grid">
+      <!-- User Profile Card -->
+      <div class="dashboard-card">
+        <div class="card-header">
+          <div class="card-icon">
+            <i class="fas fa-user-circle"></i>
+          </div>
+          <h2 class="card-title">Profile Information</h2>
+        </div>
+        
+        <div class="info-row">
+          <span class="info-label">
+            <i class="fas fa-id-badge"></i> Name
+          </span>
+          <span class="info-value" id="userName">Loading...</span>
+        </div>
+        
+        <div class="info-row">
+          <span class="info-label">
+            <i class="fas fa-envelope"></i> Email
+          </span>
+          <span class="info-value" id="userEmail">Loading...</span>
+        </div>
+        
+        <div class="info-row">
+          <span class="info-label">
+            <i class="fas fa-hashtag"></i> User ID
+          </span>
+          <span class="info-value" id="userId">Loading...</span>
+        </div>
+
+        <div class="info-row" style="border: none; padding-top: 20px;">
+          <span class="info-label">
+            <i class="fas fa-birthday-cake"></i>Age
+          </span>
+          <span class="info-value" id="calculatedAge"> ${age} </span>
+        </div>
       </div>
-    </div>
-    <div class="features">
-      <h3 class="section-title"><i class="fas fa-star"></i> Features</h3>
-      <ul>
-        <li>Scan food ingredients using Ingre Scan</li>
-        <li>View scan history in History page</li>
-        <li>AI-powered food & health analysis</li>
-        <li>Secure and private with AES encryption</li>
-      </ul>
+
+      <!-- Health Information Card -->
+      <div class="dashboard-card">
+        <div class="card-header">
+          <div class="card-icon">
+            <i class="fas fa-heartbeat"></i>
+          </div>
+          <h2 class="card-title">Health Details</h2>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <label class="info-label" style="margin-bottom: 10px; display: block;">
+            <i class="fas fa-notes-medical"></i> Health Issues
+          </label>
+          <div class="input-group">
+            <input type="text" id="userIssuesInput" placeholder="e.g. diabetes, hypertension">
+            <button class="btn analyze" onclick="saveHealthIssues()">
+              <i class="fas fa-save"></i> Save
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label class="info-label" style="margin-bottom: 10px; display: block;">
+            <i class="fas fa-calendar-alt"></i> Date of Birth
+          </label>
+          <div class="input-group">
+            <input type="text" id="userDOB" onchange="calculateAge()" placeholder="YYYY-MM-DD">
+            <button class="btn analyze" onclick="saveDOB()">
+              <i class="fas fa-calendar-check"></i> Update
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Stats Card -->
+      
+      
+
+      <!-- Features Card -->
+      <div class="dashboard-card full-width-card">
+        <div class="card-header">
+          <div class="card-icon">
+            <i class="fas fa-star"></i>
+          </div>
+          <h2 class="card-title">Platform Features</h2>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-icon-box">
+              <i class="fas fa-barcode"></i>
+            </div>
+            <div class="feature-content">
+              <h4>Ingredient Scanner</h4>
+              <p>Scan food ingredients instantly using advanced OCR technology</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon-box">
+              <i class="fas fa-history"></i>
+            </div>
+            <div class="feature-content">
+              <h4>Scan History</h4>
+              <p>Access your complete scan history and track patterns over time</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon-box">
+              <i class="fas fa-brain"></i>
+            </div>
+            <div class="feature-content">
+              <h4>AI Analysis</h4>
+              <p>Get AI-powered insights on food ingredients and health impacts</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon-box">
+              <i class="fas fa-lock"></i>
+            </div>
+            <div class="feature-content">
+              <h4>AES Encryption</h4>
+              <p>Your data is secured with military-grade AES encryption</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 

@@ -102,7 +102,8 @@ function calculateAge() {
   const dob = document.getElementById("userDOB").value;
   if (!dob) { 
     if (document.getElementById("calculatedAge")) {
-      document.getElementById("calculatedAge").textContent = "Age: N/A"; 
+      document.getElementById("calculatedAge").textContent = ""; 
+      
     }
     return; 
   }
@@ -111,7 +112,7 @@ function calculateAge() {
   const ageDate = new Date(diff);
   const age = Math.abs(ageDate.getUTCFullYear() - 1970);
   if (document.getElementById("calculatedAge")) {
-    document.getElementById("calculatedAge").textContent = `Age: ${age}`;
+    document.getElementById("calculatedAge").textContent = ` ${age}`;
   }
 }
 
