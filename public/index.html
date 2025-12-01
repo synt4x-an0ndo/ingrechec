@@ -896,33 +896,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const user = localStorage.getItem("user"); // your login key
 
   if (user) {
-    // Desktop menu replacements
-    const desktopNav = document.querySelector(".nav-desktop");
-    const desktopGetStarted = desktopNav?.querySelector('a[href="register.html"]');
-    const desktopLogin = desktopNav?.querySelector('a[href="signin.html"]');
+    // Select ALL register and login buttons across the entire page
+    const allRegisterButtons = document.querySelectorAll('a[href="register.html"]');
+    const allLoginButtons = document.querySelectorAll('a[href="signin.html"]');
+    
+    // Track which containers already have a dashboard button
+    const processedContainers = new Set();
 
-    // Mobile menu replacements
-    const mobileMenu = document.querySelector("#mobile-menu");
-    const mobileGetStarted = mobileMenu?.querySelector('a[href="register.html"]');
-    const mobileLogin = mobileMenu?.querySelector('a[href="signin.html"]');
+    // Replace all register buttons with Dashboard button
+    allRegisterButtons.forEach((btn) => {
+      const parent = btn.parentElement;
+      
+      // Create Dashboard button with same styling
+      const dashboardBtn = document.createElement("a");
+      dashboardBtn.href = "dashboard.html";
+      
+      // Preserve original classes but change text
+      dashboardBtn.className = btn.className;
+      
+      // Check if it's the CTA button (has special structure)
+      if (btn.classList.contains('cta-button')) {
+        dashboardBtn.innerHTML = '<span>Go to Dashboard</span><i class="fa-arrow-right fas"></i>';
+      } else {
+        dashboardBtn.textContent = "Dashboard";
+      }
+      
+      // Replace the button
+      btn.replaceWith(dashboardBtn);
+      processedContainers.add(parent);
+    });
 
-    // Remove old buttons
-    desktopGetStarted?.remove();
-    desktopLogin?.remove();
-    mobileGetStarted?.remove();
-    mobileLogin?.remove();
-
-    // Create new Dashboard button (same look as Get Started)
-    const dashboardBtnDesktop = document.createElement("a");
-    dashboardBtnDesktop.href = "dashboard.html"; // your dashboard link
-    dashboardBtnDesktop.className = "btn btn-primary";
-    dashboardBtnDesktop.textContent = "Dashboard";
-
-    const dashboardBtnMobile = dashboardBtnDesktop.cloneNode(true);
-
-    // Add new buttons in their places
-    if (desktopNav) desktopNav.prepend(dashboardBtnDesktop);
-    if (mobileMenu) mobileMenu.prepend(dashboardBtnMobile);
+    // Remove all login buttons (since we now have Dashboard)
+    allLoginButtons.forEach((btn) => {
+      btn.remove();
+    });
   }
 });
 </script>
