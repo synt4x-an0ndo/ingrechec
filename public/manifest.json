@@ -1,0 +1,30 @@
+{
+  "name": "IngreChec - AI Food Ingredient Scanner",
+  "short_name": "IngreChec",
+  "description": "AI-powered food ingredient scanner that helps you make healthier food choices by analyzing product labels instantly.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#166ba3",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["health", "food", "lifestyle", "utilities"],
+  "icons": [
+    {
+      "src": "/img/logo2.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/img/logo2.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

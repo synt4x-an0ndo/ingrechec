@@ -1,0 +1,52 @@
+# robots.txt for IngreChec
+# https://www.ingrechec.online
+
+# Allow all search engines
+User-agent: *
+
+# Allow crawling of main pages
+Allow: /
+Allow: /index.html
+Allow: /scan.html
+Allow: /signin.html
+Allow: /register.html
+Allow: /creator.html
+
+# Disallow private/user-specific pages
+Disallow: /dashboard.html
+Disallow: /history.html
+Disallow: /uploads/
+
+# Disallow error pages
+Disallow: /404.html
+
+# Disallow JavaScript and CSS folders from being crawled (they can still be indexed)
+# Allow: /css/
+# Allow: /js/
+# Allow: /img/
+
+# Sitemap location
+Sitemap: https://www.ingrechec.online/sitemap.xml
+
+# Crawl-delay for polite crawling (optional)
+Crawl-delay: 1
+
+# Google-specific
+User-agent: Googlebot
+Allow: /
+
+# Bing-specific
+User-agent: Bingbot
+Allow: /
+
+# Google Images
+User-agent: Googlebot-Image
+Allow: /img/
+
+# Block AI crawlers if you want to protect content (optional - remove if you want AI training)
+# User-agent: GPTBot
+# Disallow: /
+# User-agent: ChatGPT-User
+# Disallow: /
+# User-agent: CCBot
+# Disallow: /

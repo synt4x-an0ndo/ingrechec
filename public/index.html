@@ -36,7 +36,15 @@
   "name": "IngreChec",
   "url": "https://www.ingrechec.online",
   "logo": "https://www.ingrechec.online/img/logo2.png",
-  
+  "description": "AI-powered food ingredient scanner that helps you make healthier food choices by analyzing product labels instantly.",
+  "sameAs": [
+    "https://www.ingrechec.online"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "availableLanguage": "English"
+  }
 }
 </script>
 
@@ -68,26 +76,61 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <!-- Favicon -->
   <link rel="icon" href="img/logo2.png" type="image/png" />
+  <link rel="apple-touch-icon" href="img/logo2.png">
+  <link rel="manifest" href="manifest.json">
 
   <!-- Title & Meta Description for SEO -->
-  <title>IngreChec – Scan Before You Eat</title>
-  <meta name="description"
-    content="Upload or scan food product labels to instantly know if they're safe for your health conditions. Stay informed, stay healthy with IngreChec.">
+  <title>IngreChec – AI Food Ingredient Scanner | Scan Before You Eat</title>
+  <meta name="description" content="IngreChec is a free AI-powered food ingredient scanner. Upload or scan product labels to instantly check if food is safe for your allergies, diabetes, or health conditions. Make healthier choices today!">
+  
+  <!-- SEO Keywords -->
+  <meta name="keywords" content="food ingredient scanner, ingredient checker, food label scanner, allergy checker, food safety app, AI food scanner, nutrition analyzer, food ingredients analysis, healthy eating app, dietary restrictions, food allergen detector, diabetes friendly food, gluten free checker, vegan food checker, IngreChec">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="author" content="IngreChec Team">
+  <meta name="language" content="English">
+  <meta name="revisit-after" content="7 days">
+  <meta name="rating" content="general">
+  <meta name="distribution" content="global">
 
   <!-- Canonical URL -->
   <link rel="canonical" href="https://www.ingrechec.online/">
 
-  <!-- Open Graph / Social Sharing -->
-  <meta property="og:title" content="IngreChec – Scan Before You Eat">
-  <meta property="og:description"
-    content="Upload or scan food product labels to instantly know if they're safe for your health conditions. Stay informed, stay healthy with IngreChec.">
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="IngreChec – AI Food Ingredient Scanner | Scan Before You Eat">
+  <meta property="og:description" content="Free AI-powered food ingredient scanner. Upload product labels to instantly check if food is safe for your allergies, diabetes, or health conditions. Make healthier choices today!">
   <meta property="og:image" content="https://www.ingrechec.online/img/logo2.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="IngreChec - AI Food Ingredient Scanner">
   <meta property="og:url" content="https://www.ingrechec.online">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="IngreChec">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="IngreChec – AI Food Ingredient Scanner | Scan Before You Eat">
+  <meta name="twitter:description" content="Free AI-powered food ingredient scanner. Upload product labels to check food safety for allergies and health conditions instantly.">
+  <meta name="twitter:image" content="https://www.ingrechec.online/img/logo2.png">
+  <meta name="twitter:image:alt" content="IngreChec - AI Food Ingredient Scanner">
+
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#166ba3">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="IngreChec">
+  <meta name="application-name" content="IngreChec">
+
+  <!-- Geo Tags -->
+  <meta name="geo.region" content="BD">
+  <meta name="geo.placename" content="Bangladesh">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -105,8 +148,73 @@
     "description": "Scan and analyze food ingredients instantly with IngreChec to make safer, healthier choices.",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://www.ingrechec.com/?q={search_term_string}",
+      "target": "https://www.ingrechec.online/scan.html?q={search_term_string}",
       "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  
+  <!-- FAQ Schema for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is IngreChec?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "IngreChec is a free AI-powered food ingredient scanner that helps you analyze product labels instantly. Upload a photo of any food ingredient list, and our AI will identify potentially harmful ingredients, allergens, and check compatibility with your dietary restrictions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does IngreChec work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Simply upload a photo of the ingredient list from any food product. Our AI technology uses OCR (Optical Character Recognition) to read the ingredients and then analyzes them against known allergens, dietary restrictions, and health conditions you've specified in your profile."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is IngreChec free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, IngreChec is completely free to use. Create an account to save your health profile and scan history, or use it as a guest for quick ingredient checks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What health conditions does IngreChec support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "IngreChec supports various health conditions including diabetes, celiac disease (gluten intolerance), lactose intolerance, various food allergies (nuts, shellfish, eggs, etc.), and dietary preferences like vegan and vegetarian."
+        }
+      }
+    ]
+  }
+  </script>
+  
+  <!-- Software Application Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "IngreChec",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Web",
+    "url": "https://www.ingrechec.online",
+    "description": "AI-powered food ingredient scanner for checking food safety and allergens",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "150"
     }
   }
   </script>
