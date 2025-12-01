@@ -38,7 +38,8 @@
   "logo": "https://www.ingrechec.online/img/logo2.png",
   "description": "AI-powered food ingredient scanner that helps you make healthier food choices by analyzing product labels instantly.",
   "sameAs": [
-    "https://www.ingrechec.online"
+    "https://www.ingrechec.online",
+    "https://github.com/synt4x-an0ndo/ingrechec"
   ],
   "contactPoint": {
     "@type": "ContactPoint",
@@ -133,6 +134,8 @@
   <meta name="geo.placename" content="Bangladesh">
 
   <!-- Font Awesome -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- CSS -->
@@ -210,12 +213,41 @@
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "ratingCount": "150"
     }
+  }
+  </script>
+  
+  <!-- Breadcrumb Schema for better SERP -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.ingrechec.online/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Scan Ingredients",
+        "item": "https://www.ingrechec.online/scan.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Register",
+        "item": "https://www.ingrechec.online/register.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "About Us",
+        "item": "https://www.ingrechec.online/creator.html"
+      }
+    ]
   }
   </script>
 
@@ -239,7 +271,7 @@
 
       <nav class="nav">
         <div class="logo" onclick="scrollToTop()">
-          <img src="img/logo.png" alt=" Logo" class="logo">
+          <img src="img/logo.png" alt="IngreChec - AI Food Ingredient Scanner" class="logo">
         </div>
 
         <div class="nav-desktop">
